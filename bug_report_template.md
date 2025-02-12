@@ -1,7 +1,7 @@
 ---
 name: Bug Report 
 about: Use this template for reporting bugs.
-title: "[DATE]: [FEATURE NAME]"
+title: "[DATE]: [FEATURE NAME] bug report"
 labels: bug report, needs triage
 assignees:
 ---
