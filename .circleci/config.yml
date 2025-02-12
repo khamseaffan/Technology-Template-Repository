@@ -21,6 +21,27 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+  test:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - checkout
+      - run:
+          name: "Run tests"
+          command: "echo Running tests..."
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Run tests
+          command: pytest tests/ --junitxml=test-results/junit.xml
+      - store_test_results:
+          path: test-results
+      - run:
+          name: Generate coverage report
+          command: coverage run -m pytest tests/ && coverage xml
+      - store_artifacts:
+          path: coverage.xml
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
@@ -29,3 +50,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - say-hello
+      - test
