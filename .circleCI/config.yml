@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
+          name: "Hello"
           command: "echo Hello, World!"
       - run:
           name: Install dependencies
