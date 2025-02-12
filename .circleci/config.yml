@@ -36,16 +36,16 @@ jobs:
           name: Run ruff
           command: ruff check .
       - run:
-          name: Run tests
-          command: pytest tests/ --junitxml=test-results/junit.xml
+          name: Run tests with coverage
+          command: |
+            $HOME/.local/bin/coverage run -m pytest tests/ --junitxml=test-results/junit.xml
+            $HOME/.local/bin/coverage report
+            $HOME/.local/bin/coverage xml
+            $HOME/.local/bin/coverage html
       - store_test_results:
           path: test-results
-      - run:
-          name: Generate coverage report
-          command: coverage run -m pytest tests/ && coverage xml
-      # - run:
-      #     name: upload coverage report
-      #     commands: coveralls --service=circle-ci --repo-token=$COVERALLS_REPO_TOKEN
+      - store_artifacts:
+          path: htmlcov
       - store_artifacts:
           path: coverage.xml
 
