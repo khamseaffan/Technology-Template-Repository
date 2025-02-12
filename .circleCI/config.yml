@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.10
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Run tests
+          command: pytest tests/ --junitxml=test-results/junit.xml
+      - store_test_results:
+          path: test-results
+      - run:
+          name: Generate coverage report
+          command: coverage run -m pytest tests/ && coverage xml
+      - store_artifacts:
+          path: coverage.xml
+
+workflows:
+  version: 2
+  test-workflow:
+    jobs:
+      - test
