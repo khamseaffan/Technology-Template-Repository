@@ -1,4 +1,4 @@
-from src.notifier import Notifier
+from src.notifier.notifier import Notifier
 
 """Test the Notifier class."""
 

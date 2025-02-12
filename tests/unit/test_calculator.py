@@ -1,4 +1,4 @@
-from src.calculator import Calculator
+from src.calculator.calculator import Calculator
 
 """Unit tests for the calculator module."""
 

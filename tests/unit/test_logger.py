@@ -1,4 +1,4 @@
-from src.logger import Logger
+from src.logger.logger import Logger
 
 """Test the logger class."""
 
