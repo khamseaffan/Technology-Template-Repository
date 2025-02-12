@@ -36,12 +36,15 @@ jobs:
           name: Run ruff
           command: ruff check .
       - run:
+          name: Create test-results directory
+          command: mkdir -p test-results
+      - run:
           name: Run tests with coverage
           command: |
-            $HOME/.local/bin/coverage run -m pytest tests/ --junitxml=test-results/junit.xml
-            $HOME/.local/bin/coverage report
-            $HOME/.local/bin/coverage xml
-            $HOME/.local/bin/coverage html
+            coverage run -m pytest tests/ --junitxml=test-results/junit.xml
+            coverage report
+            coverage xml
+            coverage html
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -57,6 +60,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - say-hello
-  test-workflow:
-    jobs:
       - test
