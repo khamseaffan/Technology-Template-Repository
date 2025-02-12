@@ -171,4 +171,4 @@ cython_debug/
 .pypirc
 
 #venv
-.hw1/
+hw1/
