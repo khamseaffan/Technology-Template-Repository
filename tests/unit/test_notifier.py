@@ -1,6 +1,9 @@
-from src.notifier.notifier import Notifier
+from src.notifier import Notifier
 
-def test_notify(capsys):
+"""Test the Notifier class."""
+
+def test_notify(capsys) -> None:
+    """Test the notify method."""
     notifier = Notifier()
     notifier.notify("Test message")
     captured = capsys.readouterr()

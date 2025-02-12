@@ -1,6 +1,9 @@
-from src.logger.logger import Logger
+from src.logger import Logger
 
-def test_log(capsys):
+"""Test the logger class."""
+
+def test_log(capsys) -> None:
+    """Test the log method."""
     logger = Logger()
     logger.log("Test message")
     captured = capsys.readouterr()

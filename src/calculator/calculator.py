@@ -1,9 +1,15 @@
+
 class Calculator:
-    def add(self, a, b):
+    """A simple calculator class."""
+
+    def add(self, a: int, b: int) -> int:
+        """Add two numbers."""
         return a + b
 
-    def subtract(self, a, b):
+    def subtract(self, a: int, b: int) -> int:
+        """Subtract two numbers."""
         return a - b
 
-    def multiply(self, a, b):
+    def multiply(self, a: int, b: int) -> int:
+        """Multiply two numbers."""
         return a * b

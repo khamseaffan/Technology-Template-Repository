@@ -1,3 +1,10 @@
 [lint]
 select = ["ALL"]
-ignore = []
+ignore = [
+    "S101",  # Ignore `assert` usage in tests
+    "ANN001",  # Ignore missing type annotations for test function arguments
+    "T201",  # Ignore `print` statements in the Logger component
+]
+
+[lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "ANN001", "ANN201"]
