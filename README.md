@@ -11,11 +11,11 @@ This repository serves as a template for designing and developing projects in Py
 **Project Setup**  
 To setup the project environment:
 1. Clone the repository:
-' git clone <repo-url> '
+git clone <repo-url>
 2. Navigate to the project directory:
-' cd <repo-name> '
+cd <repo-name>
 3. Install project dependencies:
-'pip install -r requirements.txt'
+pip install -r requirements.txt
 **Contributions**  
 We welcome any and all contributions and will be using Github to track bugs, feature requests, and pull requests.
 By contributing, you agree that your contributions will be licensed under the project's license.  
