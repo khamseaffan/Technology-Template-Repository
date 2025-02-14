@@ -1,4 +1,3 @@
-```markdown
 # Python-Project-Template
 
 ## Description
@@ -45,4 +44,4 @@ This project is licensed under the Apache License 2.0 - see the LICENSE file for
 ## Additional Information
 - This project uses CircleCI for continuous integration, which automatically runs tests and checks code formatting with ruff.
 - The `.gitignore` file is configured to ignore Python-specific files and directories, such as `__pycache__` and the `venv` directory.
-```
+
