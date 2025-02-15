@@ -1,6 +1,8 @@
 class Logger:
-    """A simple logger class that prints messages to the console."""
+    def __init__(self):
+        self.notifier = None
 
-    def log(self, message: str) -> None:
-        """Log a message to the console."""
+    def log(self, message):
         print(f"LOG: {message}")
+        if self.notifier and "Threshold exceeded" in message:
+            self.notifier.notify(message)
