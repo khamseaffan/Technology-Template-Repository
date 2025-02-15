@@ -36,20 +36,11 @@ jobs:
           name: Create virtual environment
           command: uv venv .venv
       - run:
-          name: Activate virtual environment
-          command: source .venv/bin/activate   
-      - run:
-          name: Install dependencies with UV
-          command: uv pip install -r requirements.txt
-      # - run:
-      #     name: Run ruff
-      #     command: ruff check .
-      - run:
-          name: Create test-results directory
-          command: mkdir -p test-results
-      - run:
-          name: Run tests with coverage
+          name: Install dependencies and run checks
           command: |
+            uv pip install -r requirements.txt
+            ruff check .
+            mkdir -p test-results
             coverage run -m pytest tests/ --junitxml=test-results/junit.xml
             coverage report
             coverage xml
