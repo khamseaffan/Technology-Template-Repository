@@ -24,6 +24,9 @@ jobs:
   test:
     docker:
       - image: cimg/python:3.12
+    # Set PYTHONPATH to the repository root so that the src package is recognized
+    environment:
+      PYTHONPATH: .
     steps:
       - checkout
       - run:
@@ -46,13 +49,28 @@ jobs:
             coverage report
             coverage xml
             coverage html
+      - run:
+          name: Run Static Analysis (mypy)
+          command: |
+            source .venv/bin/activate
+            mypy --strict src/
+      - run:
+          name: Enforce Coverage Threshold
+          command: |
+            source .venv/bin/activate
+            coverage report --fail-under=90
+      - run:
+          name: Run nose2 Tests (Extra Credit)
+          command: |
+            source .venv/bin/activate
+            uv pip install nose2
+            nose2 --with-coverage
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: htmlcov
       - store_artifacts:
           path: coverage.xml
-
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
