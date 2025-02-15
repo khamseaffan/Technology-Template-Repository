@@ -1,1 +1,1 @@
-"""This module contains the core functionality for the project."""
+"""Module for test."""
