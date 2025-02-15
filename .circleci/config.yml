@@ -30,8 +30,11 @@ jobs:
           name: "Run tests"
           command: "echo Running tests..."
       - run:
-          name: Install dependencies
-          command: pip install -r requirements.txt
+          name: Installing UV
+          command: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run:
+          name: Install dependencies with UV
+          command: uv pip install -r requirements.txt
       - run:
           name: Run ruff
           command: ruff check .
