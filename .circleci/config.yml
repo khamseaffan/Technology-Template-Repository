@@ -32,9 +32,9 @@ jobs:
       - run:
           name: Install dependencies
           command: pip install -r requirements.txt
-      # - run:
-      #     name: Run ruff
-      #     command: ruff check .
+      - run:
+          name: Run ruff
+          command: ruff check .
       - run:
           name: Create test-results directory
           command: mkdir -p test-results
@@ -59,5 +59,4 @@ workflows:
   say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - say-hello
       - test

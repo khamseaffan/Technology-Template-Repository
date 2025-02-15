@@ -1,4 +1,3 @@
-
 class Calculator:
     """A simple calculator class."""
 

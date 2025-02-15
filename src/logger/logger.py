@@ -1,4 +1,3 @@
-
 class Logger:
     """A simple logger class that prints messages to the console."""
 

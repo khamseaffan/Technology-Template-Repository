@@ -1,4 +1,3 @@
-
 class Notifier:
     """Notifier class to send notifications."""
 
