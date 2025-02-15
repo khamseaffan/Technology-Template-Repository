@@ -1,27 +1,32 @@
 class Calculator:
-    def __init__(self):
-        # These can be injected later (for example, in your tests)
+    """A simple calculator for performing basic arithmetic operations."""
+
+    def __init__(self) -> None:
         self.logger = None
         self.notifier = None
 
-    def add(self, a, b):
+    def add(self, a: int, b: int) -> int:
         result = a + b
         if self.logger:
             self.logger.log(f"Addition: {a} + {b} = {result}")
         if self.notifier:
-            self.notifier.notify(result)  # Pass result, not message
+            self.notifier.notify(result)
         return result
 
-    def subtract(self, a, b):
+    def subtract(self, a: int, b: int) -> int:
         result = a - b
-        # Optionally, log subtraction if needed
-        if self.logger is not None:
+        if self.logger:
             self.logger.log(f"Subtraction: {a} - {b} = {result}")
         return result
 
-    def multiply(self, a, b):
+    def multiply(self, a: int, b: int) -> int:
         result = a * b
-        # Optionally, log multiplication if needed
-        if self.logger is not None:
+        if self.logger:
             self.logger.log(f"Multiplication: {a} * {b} = {result}")
+        return result
+    
+    def divide(self, a: int, b: int) -> int:
+        result = a / b
+        if self.logger:
+            self.logger.log(f"Division: {a} / {b} = {result}")
         return result

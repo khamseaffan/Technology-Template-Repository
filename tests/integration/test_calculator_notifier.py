@@ -13,5 +13,4 @@ def test_calculator_notifier(mock_notifier):
     calc = Calculator()
     calc.notifier = mock_notifier
     result = calc.add(2, 3)
-    # Expect that notifier.notify is called with the result (5)
     mock_notifier.notify.assert_called_with(result)
