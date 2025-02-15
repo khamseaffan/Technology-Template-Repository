@@ -33,6 +33,9 @@ jobs:
           name: Installing UV
           command: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run:
+          name: Creating and activating UV environment
+          command: uv venv && source venv/bin/activate    
+      - run:
           name: Install dependencies with UV
           command: uv pip install -r requirements.txt
       - run:
