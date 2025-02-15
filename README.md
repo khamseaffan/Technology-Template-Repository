@@ -22,9 +22,19 @@ To set up the project environment:
    ```bash
    cd <repo-name>
    ```
-3. Install project dependencies:
+3. Install UV, the package manager for dependency management:
+   For macOS/linux
    ```bash
-   pip install -r requirements.txt
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+   For Windows
+   ```bash
+   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+   ```
+
+4. Install project dependencies using UV:
+   ```bash
+   uv pip install -r requirements.txt
    ```
 
 ## Contributions

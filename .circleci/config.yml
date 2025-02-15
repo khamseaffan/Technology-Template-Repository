@@ -30,17 +30,18 @@ jobs:
           name: "Run tests"
           command: "echo Running tests..."
       - run:
-          name: Install dependencies
-          command: pip install -r requirements.txt
+          name: Installing UV
+          command: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run:
-          name: Run ruff
-          command: ruff check .
+          name: Create virtual environment
+          command: uv venv .venv
       - run:
-          name: Create test-results directory
-          command: mkdir -p test-results
-      - run:
-          name: Run tests with coverage
+          name: Install dependencies and run checks
           command: |
+            source .venv/bin/activate
+            uv pip install -r requirements.txt
+            ruff check .
+            mkdir -p test-results
             coverage run -m pytest tests/ --junitxml=test-results/junit.xml
             coverage report
             coverage xml
