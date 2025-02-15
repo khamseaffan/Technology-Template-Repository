@@ -33,7 +33,7 @@ class Calculator:
 
     def divide(self, a: int, b: int) -> int:
         """Return the division of a by b."""
-        result = a / b
+        result = a // b
         if self.logger:
             self.logger.log(f"Division: {a} / {b} = {result}")
         return result
