@@ -1,6 +1,0 @@
-pytest
-ruff
-mypy
-coverage
-uv
-nose2

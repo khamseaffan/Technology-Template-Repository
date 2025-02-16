@@ -42,8 +42,8 @@ jobs:
           name: Install dependencies and run checks
           command: |
             source .venv/bin/activate
-            uv pip install -r requirements.txt
-            ruff check .
+            uv sync
+            uvx ruff check .
             mkdir -p test-results
             coverage run -m pytest tests/ --junitxml=test-results/junit.xml
             coverage report

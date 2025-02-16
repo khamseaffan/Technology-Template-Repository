@@ -27,14 +27,16 @@ To set up the project environment:
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
+   Alternatively, for brew installation: [brew install uv](https://formulae.brew.sh/formula/uv) is sufficient.
+
    For Windows
    ```bash
    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
    ```
 
-4. Install project dependencies using UV:
+4. Install the project dependencies:
    ```bash
-   uv pip install -r requirements.txt
+   uv sync
    ```
 
 ## Contributions
