@@ -8,7 +8,7 @@ from src.notifier.notifier import Notifier
 
 
 @pytest.fixture
-def components():
+def components() -> tuple[Calculator, Logger, Notifier]:
     """Return components for full workflow testing."""
     logger = Logger()
     notifier = Notifier()
@@ -17,10 +17,13 @@ def components():
     calc.notifier = notifier
     return calc, logger, notifier
 
-def test_full_workflow(components, capsys):
+
+def test_full_workflow(
+    components: tuple[Calculator, Logger, Notifier], capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test the full workflow of the calculator."""
     calc, logger, notifier = components
     result = calc.add(7, 5)
-    notifier.notify(result)
+    notifier.notify(str(result))
     output = capsys.readouterr().out
     assert "NOTIFICATION:" in output, "Notification message missing in output"

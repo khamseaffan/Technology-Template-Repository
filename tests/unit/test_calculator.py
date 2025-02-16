@@ -23,6 +23,7 @@ def test_multiply() -> None:
     expected = 6
     assert calc.multiply(2, 3) == expected
 
+
 def test_divison() -> None:
     """Test the multiply function."""
     calc = Calculator()

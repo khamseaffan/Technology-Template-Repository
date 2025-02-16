@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """Module for notifier functionality."""
 
+
 class Notifier:
     """Notifier class for sending notifications."""
 

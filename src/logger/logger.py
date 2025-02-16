@@ -1,5 +1,6 @@
 """Module for logger functionality."""
 
+
 class Logger:
     """Logger class for outputting log messages."""
 
