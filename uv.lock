@@ -78,6 +78,15 @@ wheels = [
 ]
 
 [[package]]
+name = "nanobind"
+version = "2.5.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/fa/8e5930837f9b08202c4e566cf529480b0c3266e88f39723388baf8c69700/nanobind-2.5.0.tar.gz", hash = "sha256:cc8412e94acffa20a369191382bcdbb6fbfb302e475e87cacff9516d51023a15", size = 962802 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8e/9e/dadc3831f40e22c1b3925f07894646ada7906ef5b48db5c5eb2b03ca9faa/nanobind-2.5.0-py3-none-any.whl", hash = "sha256:e1e5c816e5d10f0b252d82ba7f769f0f6679f5e043cf406aec3d9e184bf2a60d", size = 236912 },
+]
+
+[[package]]
 name = "nose2"
 version = "0.15.1"
 source = { registry = "https://pypi.org/simple" }
@@ -151,6 +160,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "coverage" },
     { name = "mypy" },
+    { name = "nanobind" },
     { name = "nose2" },
     { name = "pytest" },
     { name = "ruff" },
@@ -161,6 +171,7 @@ dependencies = [
 requires-dist = [
     { name = "coverage", specifier = ">=7.6.12" },
     { name = "mypy", specifier = ">=1.15.0" },
+    { name = "nanobind", specifier = ">=2.5.0" },
     { name = "nose2", specifier = ">=0.15.1" },
     { name = "pytest", specifier = ">=8.3.4" },
     { name = "ruff", specifier = ">=0.9.6" },
