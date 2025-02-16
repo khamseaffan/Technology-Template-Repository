@@ -1,0 +1,14 @@
+[project]
+name = "technology-template-repository"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "coverage>=7.6.12",
+    "mypy>=1.15.0",
+    "nose2>=0.15.1",
+    "pytest>=8.3.4",
+    "ruff>=0.9.6",
+    "uv>=0.6.0",
+]
