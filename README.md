@@ -45,93 +45,25 @@ To set up the project environment:
    uv sync
    ```
 
-## Running Unit Tests
+## Testing
 
-This project uses `pytest` for running unit tests. To run all tests, use:
+To run all of the test suite at once:
 
 ```bash
 pytest
 ```
 
-````
-
-To run a specific test file:
+To run individual test files:
 
 ```bash
-pytest tests/integration/test_calculator_logger.py
+pytest <path-to-specific-test-file>
 ```
 
-To run a single test function inside a file:
+To run individual tests within a file:
 
 ```bash
-pytest tests/integration/test_calculator_logger.py::test_function_name
+pytest <path-to-specific-test-file::name-of-individual-test>
 ```
-
-To check code coverage while running tests:
-
-```bash
-coverage run -m pytest
-coverage report -m
-```
-
-## Using This Template for a New Project
-
-To create a new project using this template, follow these steps:
-
-1. **Clone the template repository**:
-
-   ```bash
-   git clone <repo-url> my-new-project
-   cd my-new-project
-   ```
-
-2. **Remove the existing Git history** (optional, for a fresh start):
-
-   ```bash
-   rm -rf .git
-   git init
-   git add .
-   git commit -m "Initial commit from template"
-   ```
-
-3. **Modify `pyproject.toml` and `README.md` to reflect your project details**.
-
-4. **Install dependencies and start developing**:
-   ```bash
-   uv sync
-   ```
-
-## Project Structure
-
-This project follows a modular structure, with each component acting as its own package.
-
-```
-src/
-│── calculator/      # Handles mathematical operations
-│   ├── __init__.py
-│   ├── calculator.py
-│   ├── pyproject.toml
-│── logger/          # Handles logging operations
-│   ├── __init__.py
-│   ├── logger.py
-│   ├── pyproject.toml
-│── notifier/        # Handles notification-related tasks
-│   ├── __init__.py
-│   ├── notifier.py
-│   ├── pyproject.toml
-tests/
-│── integration/     # Integration tests
-│── e2e/            # End-to-end tests
-```
-
-Each component (`calculator`, `logger`, `notifier`) is **installable separately** using:
-
-```bash
-uv pip install -e src/calculator
-uv pip install -e src/logger
-uv pip install -e src/notifier
-```
-````
 
 ## Contributions
 
