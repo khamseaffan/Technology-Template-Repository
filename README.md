@@ -40,13 +40,16 @@ To set up the project environment:
    ```
 ## Testing
 To run all of the test suite at once:  
-```pytest
+```bash
+pytest
    ```  
 To run individual test files:  
-```pytest <path-to-specific-test-file>
+```bash
+pytest <path-to-specific-test-file>
    ```  
 To run individual tests within a file:  
-```pytest <path-to-specific-test-file::name-of-individual-test>
+```bash
+pytest <path-to-specific-test-file::name-of-individual-test>
    ```  
 
 
