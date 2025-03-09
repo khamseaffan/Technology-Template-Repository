@@ -24,7 +24,7 @@ parts/
 sdist/
 var/
 wheels/
-share/python-wheels/
+- share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -150,6 +150,9 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
+# JetBrains
+.idea/
+
 # mkdocs documentation
 /site
 
@@ -179,3 +182,8 @@ cython_debug/
 
 #venv
 hw1/
+
+# Vim / Emacs (Editor backup files)
+*~
+.swp
+.swo
