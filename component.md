@@ -4,5 +4,5 @@ Components will normally share a similar set of qualities:
 2. Components are modular.
 3. Components are independent are rarely have dependencies.
 4. Components are reusable in different parts of a software project.
-5. Components are interoperable and are able to be used across different systems and platforms.
-Components should be separated in the src directory and each folder should contain its own component. 
+5. Components are interoperable and are able to be used across different systems and platforms.  
+Components should be separated in the src directory and each folder should contain its own component and in addition, components should be separated by implementation and interface. 
