@@ -1,6 +1,8 @@
+from .logger_interface import Logger
+
 """Module for logger functionality."""
 
-class Logger:
+class SimpleLogger(Logger):
     """Logger class for outputting log messages."""
 
     def __init__(self) -> None:
