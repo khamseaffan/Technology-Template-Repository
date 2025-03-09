@@ -38,6 +38,14 @@ To set up the project environment:
    ```bash
    uv sync
    ```
+## Testing
+To run all of the test suite at once:  
+'''pytest
+'''
+To run individual tests:  
+'''pytest <path-to-specific-test-file>
+'''  
+
 
 ## Contributions
 We welcome any and all contributions and will be using GitHub to track bugs, feature requests, and pull requests.  
