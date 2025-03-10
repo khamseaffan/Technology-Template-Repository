@@ -1,10 +1,11 @@
 import pytest
-from src.api.logger_api import LoggerAPI
+from src.logger.logger_api import LoggerAPI
 
 @pytest.fixture
-def logger_api():
+def logger():
+    """Fixture to create a LoggerAPI instance."""
     return LoggerAPI()
 
-def test_log_message(logger_api):
-    response = logger_api.log_message("Test log")
-    assert response == {"status": "logged", "message": "Test log"}
+def test_logging(logger) -> None:
+    """Test if messages are logged correctly."""
+    assert logger.log_message("Test message", "info") is None

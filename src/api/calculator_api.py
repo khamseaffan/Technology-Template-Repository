@@ -4,11 +4,30 @@ from src.logger.logger import Logger
 from src.notifier.notifier import Notifier
 
 class CalculatorAPI:
+    """
+    A simple API for performing calculator operations.
+    """
+
     def __init__(self) -> None:
+        """
+        Initializes the CalculatorAPI with a calculator and logger.
+        """
         self.calculator = Calculator()
         self.logger = Logger()
         self.notifier = Notifier()
+
     def calculate(self, operation: str, num1: float, num2: float) -> dict:
+        """
+        Perform a calculation operation.
+
+        Args:
+            operation (str): The operation to perform ('add', 'subtract', etc.).
+            num1 (float): The first number.
+            num2 (float): The second number.
+
+        Returns:
+            dict: The result of the operation.
+        """
         if not isinstance(num1, int | float) or not isinstance(num2, int | float):
             msg = "Inputs must be numbers"
             raise TypeError(msg)
