@@ -39,7 +39,7 @@ jobs:
             source .venv/bin/activate
             python -m ensurepip --default-pip
             uv sync
-            uv pip install coverage pytest mypy
+            uv pip install coverage pytest mypy ruff
             echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
       - run:
           name: "Run linting and formatting"
