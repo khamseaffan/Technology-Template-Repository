@@ -14,3 +14,6 @@ class SimpleNotifier(Notifier):
     def notify(self, message: str) -> None:
         """Output a notification message."""
         print(f"NOTIFICATION: {message}")
+
+
+__all__ = ["SimpleNotifier"]

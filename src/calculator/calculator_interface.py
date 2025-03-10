@@ -1,10 +1,14 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Optional
+from src.notifier.notifier_interface import Notifier
+from src.logger.logger_interface import Logger
 
 """Module for calculator interface."""
 
 class Calculator(ABC):
     """Interface for calculator implementation."""
+    notifier: Optional[Notifier]
+    logger: Optional[Logger]
 
     @abstractmethod
     def add(self, a: Any, b: Any) -> Any:

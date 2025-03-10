@@ -15,3 +15,5 @@ class SimpleLogger(Logger):
         print(f"LOG: {message}")
         if self.notifier and "Threshold exceeded" in message:
             self.notifier.notify(message)
+
+__all__ = ["SimpleLogger"]

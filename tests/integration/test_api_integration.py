@@ -4,7 +4,7 @@ from src.api.notifier_api import NotifierAPI
 
 RESULT_INTEGRATION = 10
 
-def test_calculator_logger_notifier_integration():
+def test_calculator_logger_notifier_integration() -> None:
     calc_api = CalculatorAPI()
     log_api = LoggerAPI()
     notifier_api = NotifierAPI()

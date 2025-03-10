@@ -1,14 +1,14 @@
 from typing import NoReturn
-from src.calculator.calculator import Calculator
-from src.logger.logger import Logger
-from src.notifier.notifier import Notifier
+from src.calculator.calculator import SimpleCalculator
+from src.logger.logger import SimpleLogger
+from src.notifier.notifier import SimpleNotifier
 
 class CalculatorAPI:
     def __init__(self) -> None:
-        self.calculator = Calculator()
-        self.logger = Logger()
-        self.notifier = Notifier()
-    def calculate(self, operation: str, num1: float, num2: float) -> dict:
+        self.calculator = SimpleCalculator()
+        self.logger = SimpleLogger()
+        self.notifier = SimpleNotifier()
+    def calculate(self, operation: str, num1: float, num2: float) -> dict[str, str|float]:
         if not isinstance(num1, int | float) or not isinstance(num2, int | float):
             msg = "Inputs must be numbers"
             raise TypeError(msg)
