@@ -4,14 +4,10 @@ from src.logger.logger import Logger
 from src.notifier.notifier import Notifier
 
 class CalculatorAPI:
-    """
-    A simple API for performing calculator operations.
-    """
+    """A simple API for performing calculator operations."""
 
     def __init__(self) -> None:
-        """
-        Initializes the CalculatorAPI with a calculator and logger.
-        """
+        """Initialize the CalculatorAPI with a calculator and logger."""
         self.calculator = Calculator()
         self.logger = Logger()
         self.notifier = Notifier()

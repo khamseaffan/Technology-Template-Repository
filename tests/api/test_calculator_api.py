@@ -1,6 +1,11 @@
 import pytest
 from src.calculator.calculator_api import CalculatorAPI
 
+ADDITION_RESULT = 5
+SUBTRACTION_RESULT = 2
+MULTIPLICATION_RESULT = 6
+DIVISION_RESULT = 3
+
 @pytest.fixture
 def calculator():
     """Fixture to create a CalculatorAPI instance."""
