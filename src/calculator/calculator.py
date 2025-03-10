@@ -1,12 +1,11 @@
 from typing import Optional
-from .calculator_interface import Calculator
 import logger
 import notifier
 
 """Module for calculator functionality."""
 
 
-class SimpleCalculator(Calculator):
+class Calculator:
     """Calculator class for arithmetic operations."""
 
     def __init__(self) -> None:
@@ -17,7 +16,7 @@ class SimpleCalculator(Calculator):
     @property
     def logger(self) -> Optional[logger.Logger]:
         return self._logger
-    
+
     @logger.setter
     def logger(self, value: Optional[logger.Logger]) -> None:  # Match interface type
         self._logger = value
@@ -25,9 +24,11 @@ class SimpleCalculator(Calculator):
     @property
     def notifier(self) -> Optional[notifier.Notifier]:
         return self._notifier
-    
+
     @notifier.setter
-    def notifier(self, value: Optional[notifier.Notifier]) -> None:  # Match interface type
+    def notifier(
+        self, value: Optional[notifier.Notifier]
+    ) -> None:  # Match interface type
         self._notifier = value
 
     def add(self, a: float, b: float) -> float:

@@ -1,13 +1,13 @@
-from typing import NoReturn
-from notifier import get_notifier
 from logger import get_logger
-from src.calculator.calculator import SimpleCalculator
+from notifier import get_notifier
+from typing import NoReturn
 
+from src.calculator.calculator import Calculator
 
 
 class CalculatorAPI:
     def __init__(self) -> None:
-        self.calculator = SimpleCalculator()
+        self.calculator = Calculator()
         self.logger = get_logger()
         self.notifier = get_notifier()
 

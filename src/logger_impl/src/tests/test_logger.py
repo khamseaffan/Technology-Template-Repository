@@ -7,6 +7,7 @@ from logger_impl._impl import Logger
 
 """Test the Logger class."""
 
+
 def test_log(capsys: pytest.CaptureFixture[str]) -> None:
     """Test the log method."""
     # Dependency injection of notifier
@@ -14,6 +15,7 @@ def test_log(capsys: pytest.CaptureFixture[str]) -> None:
     logger.log("Test message")
     captured = capsys.readouterr()
     assert "LOG: Test message" in captured.out
+
 
 def test_log_threshold_exceeded(capsys: pytest.CaptureFixture[str]) -> None:
     """Test the log method when threshold is exceeded."""

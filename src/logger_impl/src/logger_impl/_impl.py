@@ -20,7 +20,7 @@ class Logger(logger.Logger):
     @property
     def notifier(self) -> Optional[notifier.Notifier]:
         return self._notifier
-    
+
     @notifier.setter
     def notifier(self, value: Optional[notifier.Notifier]) -> None:
         self._notifier = value
@@ -30,6 +30,7 @@ class Logger(logger.Logger):
         print(f"LOG: {message}")
         if self.notifier and "Threshold exceeded" in message:
             self.notifier.notify(message)
+
 
 def get_logger() -> logger.Logger:
     # Note: The caller should provide the notifier instance
