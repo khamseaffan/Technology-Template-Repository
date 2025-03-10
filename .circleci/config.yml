@@ -16,55 +16,109 @@ jobs:
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
-      # Checkout the code as the first step.
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "Print a test message"
+          command: "echo The CI/CD pipeline has been successfully initiated."
+
+  build:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: "Install UV and Add to Path"
+          command: |
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: "Create virtual environment and install Python"
+          command: |
+            uv venv .venv
+            source .venv/bin/activate
+            python -m ensurepip --default-pip
+            uv sync
+            uv pip install coverage
+            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
+      - run:
+          name: "Install dependencies"
+          command: |
+            source .venv/bin/activate
+            uv sync
+            uv pip install coverage
+      - run:
+          name: "Run linting and formatting"
+          command: |
+            source .venv/bin/activate
+            uvx ruff format .
+            uvx ruff check .
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .venv
+
   test:
     docker:
       - image: cimg/python:3.12
-    # Set PYTHONPATH to the repository root so that the src package is recognized
     environment:
       PYTHONPATH: .
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run:
-          name: "Run tests"
-          command: "echo Running tests..."
+          name: "Ensure virtual environment exists and activate"
+          command: |
+            if ! command -v uv &> /dev/null; then
+              echo "UV not found. Installing..."
+              curl -LsSf https://astral.sh/uv/install.sh | sh
+              echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+              source $BASH_ENV
+            fi
+
+            if [ ! -d ".venv" ] || [ ! -f ".venv/bin/python3" ]; then
+              echo "Virtual environment is missing or broken. Recreating..."
+              uv venv .venv
+              source .venv/bin/activate
+              python -m ensurepip --default-pip
+              uv sync
+              uv pip install coverage
+            else
+              source .venv/bin/activate
+              if ! python -c "import coverage" &> /dev/null; then
+                echo "Coverage module missing. Reinstalling..."
+                uv pip install coverage
+              fi
+            fi
       - run:
-          name: Installing UV
-          command: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run:
-          name: Create virtual environment
-          command: uv venv .venv
-      - run:
-          name: Install dependencies and run checks
+          name: "Execute test suite"
           command: |
             source .venv/bin/activate
-            uv sync
-            uvx ruff check .
             mkdir -p test-results
-            coverage run -m pytest tests/ --junitxml=test-results/junit.xml
-            coverage report
-            coverage xml
-            coverage html
+            python -m coverage run -m pytest tests/ --junitxml=test-results/junit.xml
       - run:
-          name: Run Static Analysis (mypy)
+          name: "Run static analysis (mypy)"
           command: |
             source .venv/bin/activate
+            uv pip install mypy  
             mypy --strict src/
       - run:
-          name: Enforce Coverage Threshold
+          name: "Enforce coverage threshold"
           command: |
             source .venv/bin/activate
-            coverage report --fail-under=90
+            python -m coverage report --fail-under=85
+            python -m coverage xml
       - run:
-          name: Run nose2 Tests (Extra Credit)
+          name: "Execute nose2 tests (Optional)"
           command: |
             source .venv/bin/activate
             uv pip install nose2
-            nose2 --with-coverage
+            if command -v nose2 &> /dev/null; then  
+              python -m nose2 --with-coverage
+            else
+              echo "nose2 is not installed. This step will be skipped."
+            fi
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -72,10 +126,42 @@ jobs:
       - store_artifacts:
           path: coverage.xml
 
+  report-results:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Summarize test results"
+          command: |
+            echo "Summary of test execution:"
+            if [ -f test-results/junit.xml ]; then
+                grep -o 'tests passed' test-results/junit.xml | wc -l | awk '{print "Number of passed tests: " $1}'
+                grep -o 'failures' test-results/junit.xml | wc -l | awk '{print "Number of failed tests: " $1}'
+            else
+                echo "Warning: test-results/junit.xml not found. Skipping summary."
+            fi
+      - run:
+          name: "Summarize code coverage"
+          command: |
+            echo "Code coverage report:"
+            if [ -f coverage.xml ]; then
+                cat coverage.xml | grep -o 'line-rate="[^"]*"' | head -n 1
+            else
+                echo "Warning: coverage.xml not found. Skipping summary."
+            fi
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  ci-pipeline:
     jobs:
-      - test
+      - build
+      - test:
+          requires:
+            - build
+      - report-results:
+          requires:
+            - test

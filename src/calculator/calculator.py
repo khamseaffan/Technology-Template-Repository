@@ -1,5 +1,6 @@
 """Module for calculator functionality."""
 
+
 class Calculator:
     """Calculator class for arithmetic operations."""
 
