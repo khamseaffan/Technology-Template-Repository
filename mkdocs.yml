@@ -1,0 +1,36 @@
+site_name: Technology Template Repository
+site_description: Documentation for the Technology Template Repository
+site_author:
+  - Affan Khamse
+  - Ivan Aristy Eusebio
+  - Kevin Chen
+  - Mohan Lu
+repo_url: https://github.com/khamseaffan/Technology-Template-Repository
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: blue
+    accent: cyan
+
+nav:
+  - Home: index.md
+  - Components:
+      - Calculator: docs/components/calculator.md
+      - Logger: docs/components/logger.md
+      - Notifier: docs/components/notifier.md
+  - Testing:
+      - Running Tests: docs/testing.md
+  - API Reference: docs/api.md
+  - Setup Guide: docs/setup.md
+
+markdown_extensions:
+  - toc
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/khamseaffan/Technology-Template-Repository

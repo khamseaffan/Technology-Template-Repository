@@ -16,55 +16,77 @@ jobs:
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
-      # Checkout the code as the first step.
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "Print a test message"
+          command: "echo The CI/CD pipeline has been successfully initiated."
+
+  build:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: "Install UV"
+          command: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run:
+          name: "Create virtual environment"
+          command: uv venv .venv
+      - run:
+          name: "Install dependencies"
+          command: |
+            source .venv/bin/activate
+            uv sync
+      - run:
+          name: "Run linting and formatting"
+          command: |
+            source .venv/bin/activate
+            uvx ruff format .
+            uvx ruff check .
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .venv
+
   test:
     docker:
       - image: cimg/python:3.12
-    # Set PYTHONPATH to the repository root so that the src package is recognized
     environment:
       PYTHONPATH: .
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run:
-          name: "Run tests"
-          command: "echo Running tests..."
-      - run:
-          name: Installing UV
-          command: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run:
-          name: Create virtual environment
-          command: uv venv .venv
-      - run:
-          name: Install dependencies and run checks
+          name: "Execute test suite"
           command: |
             source .venv/bin/activate
-            uv sync
-            uvx ruff check .
             mkdir -p test-results
             coverage run -m pytest tests/ --junitxml=test-results/junit.xml
             coverage report
             coverage xml
             coverage html
       - run:
-          name: Run Static Analysis (mypy)
+          name: "Run static analysis (mypy)"
           command: |
             source .venv/bin/activate
+            uv pip install mypy  
             mypy --strict src/
       - run:
-          name: Enforce Coverage Threshold
+          name: "Enforce coverage threshold"
           command: |
             source .venv/bin/activate
             coverage report --fail-under=90
       - run:
-          name: Run nose2 Tests (Extra Credit)
+          name: "Execute nose2 tests (Optional)"
           command: |
             source .venv/bin/activate
             uv pip install nose2
-            nose2 --with-coverage
+            if command -v nose2 &> /dev/null; then  
+              nose2 --with-coverage
+            else
+              echo "nose2 is not installed. This step will be skipped."
+            fi
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -72,10 +94,34 @@ jobs:
       - store_artifacts:
           path: coverage.xml
 
+  report-results:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Summarize test results"
+          command: |
+            echo "Summary of test execution:"
+            grep -o 'tests passed' test-results/junit.xml | wc -l | awk '{print "Number of passed tests: " $1}'
+            grep -o 'failures' test-results/junit.xml | wc -l | awk '{print "Number of failed tests: " $1}'
+      - run:
+          name: "Summarize code coverage"
+          command: |
+            echo "Code coverage report:"
+            cat coverage.xml | grep -o 'line-rate="[^"]*"' | head -n 1
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  ci-pipeline:
     jobs:
-      - test
+      - build
+      - test:
+          requires:
+            - build
+      - report-results:
+          requires:
+            - test
