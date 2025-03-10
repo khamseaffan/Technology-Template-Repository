@@ -2,17 +2,17 @@
 
 import pytest
 
-from src.calculator.calculator import Calculator
-from src.logger.logger import Logger
-from src.notifier.notifier import Notifier
+from src.calculator.calculator import SimpleCalculator
+from src.logger.logger import SimpleLogger
+from src.notifier.notifier import SimpleNotifier
 
 
 @pytest.fixture
 def components():
     """Return components for full workflow testing."""
-    logger = Logger()
-    notifier = Notifier()
-    calc = Calculator()
+    logger = SimpleLogger()
+    notifier = SimpleNotifier()
+    calc = SimpleCalculator()
     calc.logger = logger
     calc.notifier = notifier
     return calc, logger, notifier

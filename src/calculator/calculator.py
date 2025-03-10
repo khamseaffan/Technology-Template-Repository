@@ -1,7 +1,9 @@
+from .calculator_interface import Calculator
+
 """Module for calculator functionality."""
 
 
-class Calculator:
+class SimpleCalculator(Calculator):
     """Calculator class for arithmetic operations."""
 
     def __init__(self) -> None:
