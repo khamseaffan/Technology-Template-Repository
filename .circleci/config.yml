@@ -31,7 +31,9 @@ jobs:
           command: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run:
           name: "Create virtual environment"
-          command: uv venv .venv
+          command: |
+            uv venv .venv
+            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
       - run:
           name: "Install dependencies"
           command: |
@@ -68,6 +70,8 @@ jobs:
             else
               source .venv/bin/activate
             fi
+            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
+            source $BASH_ENV
       - run:
           name: "Execute test suite"
           command: |
