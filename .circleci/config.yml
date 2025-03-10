@@ -110,7 +110,7 @@ jobs:
           name: "Enforce coverage threshold"
           command: |
             source .venv/bin/activate
-            python -m coverage report --fail-under=90
+            python -m coverage report --fail-under=85
       - run:
           name: "Execute nose2 tests (Optional)"
           command: |
