@@ -15,6 +15,7 @@ def mock_notifier():
     notifier.notify = MagicMock()
     return notifier
 
+
 def test_logger_triggers_notification(mock_notifier):
     """Test that the logger triggers the notifier."""
     logger = Logger()

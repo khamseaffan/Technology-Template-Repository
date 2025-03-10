@@ -15,6 +15,7 @@ def mock_notifier():
     notifier.notify = MagicMock()
     return notifier
 
+
 def test_calculator_notifier(mock_notifier):
     """Test that the calculator calls the notifier."""
     calc = Calculator()

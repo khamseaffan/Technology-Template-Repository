@@ -15,6 +15,7 @@ def mock_logger():
     logger.log = MagicMock()
     return logger
 
+
 def test_calculator_logs_operation(mock_logger):
     """Test that the calculator logs operations."""
     calc = Calculator()

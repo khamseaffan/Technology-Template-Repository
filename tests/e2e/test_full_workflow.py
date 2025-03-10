@@ -17,6 +17,7 @@ def components():
     calc.notifier = notifier
     return calc, logger, notifier
 
+
 def test_full_workflow(components, capsys):
     """Test the full workflow of the calculator."""
     calc, logger, notifier = components

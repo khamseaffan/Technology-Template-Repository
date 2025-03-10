@@ -58,14 +58,25 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: "Ensure virtual environment exists"
+          command: |
+            if [ ! -d ".venv" ]; then
+              echo "Virtual environment not found. Recreating..."
+              uv venv .venv
+              source .venv/bin/activate
+              uv sync
+            else
+              source .venv/bin/activate
+            fi
+      - run:
           name: "Execute test suite"
           command: |
             source .venv/bin/activate
             mkdir -p test-results
-            coverage run -m pytest tests/ --junitxml=test-results/junit.xml
-            coverage report
-            coverage xml
-            coverage html
+            python -m coverage run -m pytest tests/ --junitxml=test-results/junit.xml
+            python -m coverage report
+            python -m coverage xml
+            python -m coverage html
       - run:
           name: "Run static analysis (mypy)"
           command: |
@@ -76,14 +87,14 @@ jobs:
           name: "Enforce coverage threshold"
           command: |
             source .venv/bin/activate
-            coverage report --fail-under=90
+            python -m coverage report --fail-under=90
       - run:
           name: "Execute nose2 tests (Optional)"
           command: |
             source .venv/bin/activate
             uv pip install nose2
             if command -v nose2 &> /dev/null; then  
-              nose2 --with-coverage
+              python -m nose2 --with-coverage
             else
               echo "nose2 is not installed. This step will be skipped."
             fi
