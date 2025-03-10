@@ -1,13 +1,12 @@
 from abc import ABC, abstractmethod
 
-"""Interface for logger implementation"""
+"""Module for logger interface"""
 
 class Logger(ABC):
+    """Interface for logger implementation"""
     @abstractmethod
-    def __init__(self):
-        pass
-    @abstractmethod
-    def log(self, message):
+    def log(self, message: str) -> None:
+        """Abstract method for logging"""
         pass
     
     

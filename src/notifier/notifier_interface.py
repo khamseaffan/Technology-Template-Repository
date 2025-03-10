@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
 
-"""Interface for notifier implementation"""
+"""Module for notifier interface"""
 
 class Notifier(ABC):
+    """Interface for notifier implementation"""
     @abstractmethod
-    def __init__(self):
-        pass
-    @abstractmethod
-    def notify(self, message):
+    def notify(self, message: str) -> None:
+        """Abstract method for notification"""
         pass
     
