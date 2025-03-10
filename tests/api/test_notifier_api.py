@@ -1,4 +1,5 @@
 import pytest
+
 from src.api.notifier_api import NotifierAPI
 
 

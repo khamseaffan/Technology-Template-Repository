@@ -1,11 +1,12 @@
 """Module for integration tests: calculator notifier."""
 
+
 from unittest.mock import MagicMock
 
 import pytest
 
-from src.calculator.calculator import Calculator
 import notifier
+from src.calculator.calculator import Calculator
 
 
 @pytest.fixture

@@ -3,7 +3,8 @@ from logger import get_logger
 
 class LoggerAPI:
     """A simple API wrapper for logging functionality.
-    Provides a clean interface for logging messages through the system logger."""
+    Provides a clean interface for logging messages through the system logger.
+    """
 
     def __init__(self) -> None:
         """Initialize LoggerAPI with a system logger."""

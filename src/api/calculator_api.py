@@ -1,7 +1,7 @@
-from logger import get_logger
-from notifier import get_notifier
 from typing import NoReturn
 
+from logger import get_logger
+from notifier import get_notifier
 from src.calculator.calculator import Calculator
 
 

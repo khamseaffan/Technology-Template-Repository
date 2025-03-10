@@ -1,4 +1,4 @@
-from typing import Optional
+
 import logger
 import notifier
 
@@ -10,24 +10,24 @@ class Calculator:
 
     def __init__(self) -> None:
         """Initialize instance."""
-        self._logger: Optional[logger.Logger] = None
-        self._notifier: Optional[notifier.Notifier] = None
+        self._logger: logger.Logger | None = None
+        self._notifier: notifier.Notifier | None = None
 
     @property
-    def logger(self) -> Optional[logger.Logger]:
+    def logger(self) -> logger.Logger | None:
         return self._logger
 
     @logger.setter
-    def logger(self, value: Optional[logger.Logger]) -> None:  # Match interface type
+    def logger(self, value: logger.Logger | None) -> None:  # Match interface type
         self._logger = value
 
     @property
-    def notifier(self) -> Optional[notifier.Notifier]:
+    def notifier(self) -> notifier.Notifier | None:
         return self._notifier
 
     @notifier.setter
     def notifier(
-        self, value: Optional[notifier.Notifier]
+        self, value: notifier.Notifier | None
     ) -> None:  # Match interface type
         self._notifier = value
 

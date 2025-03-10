@@ -1,4 +1,5 @@
 import pytest
+
 from src.api.calculator_api import CalculatorAPI
 
 RESULT_ADD = 5

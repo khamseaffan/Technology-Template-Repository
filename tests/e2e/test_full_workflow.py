@@ -1,15 +1,15 @@
 """Module for end-to-end tests."""
 
-from typing import Tuple
+
 import pytest
 
-from src.calculator.calculator import Calculator
 import logger
 import notifier
+from src.calculator.calculator import Calculator
 
 
 @pytest.fixture
-def components() -> Tuple[Calculator, logger.Logger, notifier.Notifier]:
+def components() -> tuple[Calculator, logger.Logger, notifier.Notifier]:
     """Return components for full workflow testing."""
     logger = logger.get_logger()
     notifier = notifier.get_notifier()
@@ -20,7 +20,7 @@ def components() -> Tuple[Calculator, logger.Logger, notifier.Notifier]:
 
 
 def test_full_workflow(
-    components: Tuple[Calculator, logger.Logger, notifier.Notifier],
+    components: tuple[Calculator, logger.Logger, notifier.Notifier],
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Test the full workflow of the calculator."""

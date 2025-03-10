@@ -4,8 +4,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.calculator.calculator import Calculator
 import logger
+from src.calculator.calculator import Calculator
 
 
 @pytest.fixture
