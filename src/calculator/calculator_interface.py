@@ -20,5 +20,5 @@ class Calculator(ABC):
         pass
     @abstractmethod
     def divide(self, a: Any, b: Any) -> Any:
-        """Abstract method for division"""
+        """Abstract method for division."""
         pass

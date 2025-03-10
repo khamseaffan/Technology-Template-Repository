@@ -8,4 +8,4 @@ class Logger(ABC):
     @abstractmethod
     def log(self, message: str) -> None:
         """Abstract method for logging."""
-        pass    
+        pass
