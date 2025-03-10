@@ -33,3 +33,13 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101", "ANN001", "ANN201"]
+
+[tool.uv.workspace]
+members = ["src/notifier_impl"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "src/notifier_impl/src",
+    "src/calculator/src",
+    "src/logger/src"
+]

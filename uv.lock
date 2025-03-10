@@ -2,6 +2,12 @@ version = 1
 revision = 1
 requires-python = ">=3.13"
 
+[manifest]
+members = [
+    "notifier-impl",
+    "technology-template-repository",
+]
+
 [[package]]
 name = "colorama"
 version = "0.4.6"
@@ -85,6 +91,22 @@ sdist = { url = "https://files.pythonhosted.org/packages/9b/a6/f29c21026c40476ce
 wheels = [
     { url = "https://files.pythonhosted.org/packages/87/e6/6babe53a1dbfa55f6d30eb7408f4c4994658e5f27e3dbbb2b437912e5a32/nose2-0.15.1-py3-none-any.whl", hash = "sha256:564450c0c4f1602dfe171902ceb4726cc56658af7a620ae1826f1ffc86b09a86", size = 211274 },
 ]
+
+[[package]]
+name = "notifier"
+version = "0.1.0"
+source = { editable = "src/notifier" }
+
+[[package]]
+name = "notifier-impl"
+version = "0.1.0"
+source = { virtual = "src/notifier_impl" }
+dependencies = [
+    { name = "notifier" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "notifier", editable = "src/notifier" }]
 
 [[package]]
 name = "packaging"

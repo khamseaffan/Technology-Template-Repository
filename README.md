@@ -58,26 +58,40 @@ To run individual tests within a file:
 pytest <path-to-specific-test-file::name-of-individual-test>
    ```  
 
+Note that to test individual tests you might have to set your PYTHONPATH correctly so Python can find local relative modules. For example (inside notifier_impl):  `PYTHONPATH=src pytest src/tests` runs tests
 
-## Testing
+Additionally, when using local relative modules, you will need to add them to the python path of pytest so that they can be found as such: 
 
-To run all of the test suite at once:
-
-```bash
-pytest
+```toml
+[tool.pytest.ini_options]
+pythonpath = [
+    "src/notifier_impl/src",
+    "src/calculator/src",
+    "src/logger/src"
+]
 ```
 
-To run individual test files:
+## Linting 
+
+This project uses [Ruff](https://docs.astral.sh/ruff/) for linting and code formatting. To run the linter:
 
 ```bash
-pytest <path-to-specific-test-file>
+ruff check .
 ```
 
-To run individual tests within a file:
+To automatically fix issues:
 
 ```bash
-pytest <path-to-specific-test-file::name-of-individual-test>
+ruff check . --fix
 ```
+
+The configuration in `pyproject.toml` enforces strict code quality rules while ignoring specific cases where exceptions make sense. See the `[tool.ruff]` section in `pyproject.toml` for details.
+
+## Internal Dependencies
+
+In terms of specifying local relative dependencies, as per [this](https://github.com/astral-sh/uv/pull/640) pr, uv will automatically inject environment variables for you. 
+
+uv add also supports it by adding `uv add --editable ./local-path/`; however, you must first build the dependencies to create a dist file.
 
 ## Contributions
 
