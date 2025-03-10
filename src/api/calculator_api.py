@@ -1,3 +1,4 @@
+from typing import NoReturn
 from src.calculator.calculator import Calculator
 from src.logger.logger import Logger
 from src.notifier.notifier import Notifier
@@ -8,10 +9,10 @@ class CalculatorAPI:
         self.logger = Logger()
         self.notifier = Notifier()
     def calculate(self, operation: str, num1: float, num2: float) -> dict:
-        if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
+        if not isinstance(num1, int | float) or not isinstance(num2, int | float):
             msg = "Inputs must be numbers"
             raise TypeError(msg)
-        def _raise(ex, message):
+        def _raise(ex: type[Exception], message: str) -> NoReturn:
             raise ex(message)
         result = None
         try:
