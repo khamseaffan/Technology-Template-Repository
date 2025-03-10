@@ -33,20 +33,14 @@ jobs:
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
             source $BASH_ENV
       - run:
-          name: "Create virtual environment and install Python"
-          command: |
-            uv venv .venv
-            source .venv/bin/activate
-            python -m ensurepip --default-pip
-            uv sync
-            uv pip install coverage
-            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
-      - run:
-          name: "Install dependencies"
-          command: |
-            source .venv/bin/activate
-            uv sync
-            uv pip install coverage
+        name: "Set up virtual environment and install dependencies"
+        command: |
+          uv venv .venv
+          source .venv/bin/activate
+          python -m ensurepip --default-pip
+          uv sync
+          uv pip install coverage pytest
+          echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
       - run:
           name: "Run linting and formatting"
           command: |
@@ -96,7 +90,15 @@ jobs:
           command: |
             source .venv/bin/activate
             mkdir -p test-results
-            python -m coverage run -m pytest tests/ --junitxml=test-results/junit.xml
+
+            echo "Running API tests..."
+            python -m coverage run -m pytest tests/api/ --junitxml=test-results/api-tests.xml -v --tb=short
+
+            echo "Running unit tests..."
+            python -m coverage run -m pytest tests/unit/ --junitxml=test-results/unit-tests.xml -v --tb=short
+
+            echo "Running integration tests..."
+            python -m coverage run -m pytest tests/integration/ --junitxml=test-results/integration-tests.xml -v --tb=short
       - run:
           name: "Run static analysis (mypy)"
           command: |
