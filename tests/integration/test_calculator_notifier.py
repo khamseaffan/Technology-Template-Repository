@@ -1,12 +1,12 @@
 """Module for integration tests: calculator notifier."""
 
+
 from unittest.mock import MagicMock
 
 import pytest
 
-from src.calculator.calculator import SimpleCalculator
 import notifier
-from src.calculator.calculator_interface import Calculator
+from src.calculator.calculator import Calculator
 
 
 @pytest.fixture
@@ -17,7 +17,7 @@ def mock_notifier() -> notifier.Notifier:
 
 def test_calculator_notifier(mock_notifier: notifier.Notifier) -> None:
     """Test that the calculator calls the notifier."""
-    calc: Calculator = SimpleCalculator()
+    calc = Calculator()
     calc.notifier = mock_notifier
     result = calc.add(2, 3)
 

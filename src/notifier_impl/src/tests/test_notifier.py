@@ -1,7 +1,6 @@
 import pytest
 
-from notifier_impl._impl import Notifier  
-
+from notifier_impl._impl import Notifier
 
 """Test the Notifier class."""
 

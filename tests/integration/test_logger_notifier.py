@@ -5,8 +5,7 @@ from unittest.mock import MagicMock
 import pytest
 
 import notifier
-from logger import get_logger 
-
+from logger import get_logger
 
 
 @pytest.fixture

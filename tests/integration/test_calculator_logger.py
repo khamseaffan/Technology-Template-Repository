@@ -4,9 +4,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.calculator.calculator_interface import Calculator
-from src.calculator.calculator import SimpleCalculator
 import logger
+from src.calculator.calculator import Calculator
 
 
 @pytest.fixture
@@ -17,7 +16,7 @@ def mock_logger() -> logger.Logger:
 
 def test_calculator_logs_operation(mock_logger: logger.Logger) -> None:
     """Test that the calculator logs operations."""
-    calc = SimpleCalculator()
+    calc = Calculator()
     calc.logger = mock_logger
     result = calc.add(2, 3)
     expected = f"Addition: 2 + 3 = {result}"

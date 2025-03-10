@@ -1,6 +1,6 @@
 """Implementation for Logger Module."""
 
-from typing import Optional
+
 import logger
 import notifier
 
@@ -18,11 +18,11 @@ class Logger(logger.Logger):
         self.notifier = notifier_instance
 
     @property
-    def notifier(self) -> Optional[notifier.Notifier]:
+    def notifier(self) -> notifier.Notifier | None:
         return self._notifier
-    
+
     @notifier.setter
-    def notifier(self, value: Optional[notifier.Notifier]) -> None:
+    def notifier(self, value: notifier.Notifier | None) -> None:
         self._notifier = value
 
     def log(self, message: str) -> None:
@@ -30,6 +30,7 @@ class Logger(logger.Logger):
         print(f"LOG: {message}")
         if self.notifier and "Threshold exceeded" in message:
             self.notifier.notify(message)
+
 
 def get_logger() -> logger.Logger:
     # Note: The caller should provide the notifier instance

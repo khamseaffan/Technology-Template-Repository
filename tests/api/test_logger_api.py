@@ -1,4 +1,5 @@
 import pytest
+
 from src.api.logger_api import LoggerAPI
 
 
