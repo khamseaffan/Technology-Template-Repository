@@ -1,11 +1,9 @@
-from __future__ import annotations
+"""Implementation for Notifier Module."""
 
-from .notifier_interface import Notifier
-
-"""Module for notifier functionality."""
+import notifier
 
 
-class SimpleNotifier(Notifier):
+class Notifier(notifier.Notifier):
     """Notifier class for sending notifications."""
 
     def __init__(self) -> None:
@@ -15,5 +13,5 @@ class SimpleNotifier(Notifier):
         """Output a notification message."""
         print(f"NOTIFICATION: {message}")
 
-
-__all__ = ["SimpleNotifier"]
+def get_notifier() -> notifier.Notifier:
+    return Notifier()

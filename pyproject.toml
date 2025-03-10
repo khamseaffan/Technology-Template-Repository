@@ -27,7 +27,19 @@ ignore = [
     "S101",  # Ignore assert usage in tests
     "T201",  # Ignore print statements in Logger component
     "COM812",  # Suggested by ruff to disable it to avoid unexpected behavior
+    "PIE790", # Ignore unnecessary pass statement in interfaces
+    "ANN401", # Ignore dynamically typed expression are disallowed in interfaces
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101", "ANN001", "ANN201"]
+
+[tool.uv.workspace]
+members = ["src/notifier_impl", "src/logger_impl"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "src/notifier_impl/src",
+    "src/calculator_impl/src",
+    "src/logger_impl/src"
+]

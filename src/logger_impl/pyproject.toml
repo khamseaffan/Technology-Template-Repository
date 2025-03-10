@@ -1,0 +1,14 @@
+[project]
+name = "logger-impl"
+version = "0.1.0"
+description = "Implementation of the Logger Protocol"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "logger",
+    "notifier",
+]
+
+[tool.uv.sources]
+logger = { path = "../logger", editable = true }
+notifier = { path = "../notifier", editable = true }
