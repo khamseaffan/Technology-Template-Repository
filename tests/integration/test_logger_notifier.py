@@ -12,9 +12,7 @@ from src.notifier.notifier import SimpleNotifier
 @pytest.fixture
 def mock_notifier() -> Notifier:
     """Return a mock notifier."""
-    
-    notifier = MagicMock(spec=SimpleNotifier)
-    return notifier
+    return MagicMock(spec=SimpleNotifier)
 
 
 def test_logger_triggers_notification(mock_notifier: Notifier) -> None:

@@ -11,10 +11,9 @@ from src.logger.logger_interface import Logger
 
 
 @pytest.fixture
-def mock_logger() -> Logger :
+def mock_logger() -> Logger:
     """Return a mock logger."""
-    logger= MagicMock(spec=SimpleLogger)
-    return logger
+    return MagicMock(spec=SimpleLogger)
 
 
 def test_calculator_logs_operation(mock_logger: Logger) -> None:

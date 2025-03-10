@@ -23,7 +23,9 @@ def components() -> Tuple[Calculator, Logger, Notifier]:
     return (calc, logger, notifier)
 
 
-def test_full_workflow(components:  Tuple[Calculator, Logger, Notifier], capsys: pytest.CaptureFixture[str]) -> None:
+def test_full_workflow(
+    components: Tuple[Calculator, Logger, Notifier], capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test the full workflow of the calculator."""
     calc, logger, notifier = components
     result = calc.add(7, 5)

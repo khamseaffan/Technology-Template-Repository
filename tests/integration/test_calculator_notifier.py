@@ -13,8 +13,7 @@ from src.notifier.notifier_interface import Notifier
 @pytest.fixture
 def mock_notifier() -> Notifier:
     """Return a mock notifier."""
-    notifier = MagicMock(spec=SimpleNotifier)
-    return notifier
+    return MagicMock(spec=SimpleNotifier)
 
 
 def test_calculator_notifier(mock_notifier: Notifier) -> None:

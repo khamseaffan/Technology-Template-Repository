@@ -4,8 +4,10 @@ from src.notifier.notifier_interface import Notifier
 
 """Module for logger interface."""
 
+
 class Logger(ABC):
     """Interface for logger implementation."""
+
     notifier: Optional[Notifier]
 
     @abstractmethod

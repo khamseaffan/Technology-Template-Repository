@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 """Module for notifier interface."""
 
+
 class Notifier(ABC):
     """Interface for notifier implementation."""
 
