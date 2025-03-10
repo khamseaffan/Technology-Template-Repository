@@ -1,6 +1,6 @@
 """Implementation for Notifier Module."""
 
-import notifier
+import src.notifier.src.notifier as notifier
 
 
 class Notifier(notifier.Notifier):
@@ -12,7 +12,6 @@ class Notifier(notifier.Notifier):
     def notify(self, message: str) -> None:
         """Output a notification message."""
         print(f"NOTIFICATION: {message}")
-
 
 def get_notifier() -> notifier.Notifier:
     return Notifier()
