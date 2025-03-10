@@ -30,9 +30,13 @@ jobs:
           name: "Install UV"
           command: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run:
-          name: "Create virtual environment"
+          name: "Create virtual environment and install Python"
           command: |
             uv venv .venv
+            source .venv/bin/activate
+            python -m ensurepip --default-pip
+            uv sync
+            uv pip install coverage
             echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
       - run:
           name: "Install dependencies"
@@ -61,12 +65,13 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: "Ensure virtual environment exists"
+          name: "Ensure virtual environment exists and activate"
           command: |
-            if [ ! -d ".venv" ]; then
-              echo "Virtual environment not found. Recreating..."
+            if [ ! -d ".venv" ] || [ ! -f ".venv/bin/python3" ]; then
+              echo "Virtual environment is missing or broken. Recreating..."
               uv venv .venv
               source .venv/bin/activate
+              python -m ensurepip --default-pip
               uv sync
               uv pip install coverage
             else
@@ -76,6 +81,8 @@ jobs:
                 uv pip install coverage
               fi
             fi
+            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
+            source $BASH_ENV
       - run:
           name: "Execute test suite"
           command: |
