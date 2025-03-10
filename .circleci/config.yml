@@ -39,6 +39,7 @@ jobs:
           command: |
             source .venv/bin/activate
             uv sync
+            uv pip install coverage
       - run:
           name: "Run linting and formatting"
           command: |
@@ -67,11 +68,14 @@ jobs:
               uv venv .venv
               source .venv/bin/activate
               uv sync
+              uv pip install coverage
             else
               source .venv/bin/activate
+              if ! python -c "import coverage" &> /dev/null; then
+                echo "Coverage module missing. Reinstalling..."
+                uv pip install coverage
+              fi
             fi
-            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
-            source $BASH_ENV
       - run:
           name: "Execute test suite"
           command: |
