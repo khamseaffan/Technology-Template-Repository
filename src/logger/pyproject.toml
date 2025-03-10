@@ -4,4 +4,9 @@ version = "0.1.0"
 description = "Logger module"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "notifier"
+    ]
+
+[tool.uv.sources]
+notifier = { path = "../notifier", editable = true }

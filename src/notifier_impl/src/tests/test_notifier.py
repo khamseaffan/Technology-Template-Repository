@@ -1,6 +1,6 @@
 import pytest
 
-from notifier_impl._impl import Notifier  # type: ignore  # Disable MyPy warning
+from notifier_impl._impl import Notifier  
 
 
 """Test the Notifier class."""

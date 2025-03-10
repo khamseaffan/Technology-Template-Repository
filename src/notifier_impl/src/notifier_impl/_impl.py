@@ -1,6 +1,6 @@
 """Implementation for Notifier Module."""
 
-import src.notifier.src.notifier as notifier
+import notifier
 
 
 class Notifier(notifier.Notifier):

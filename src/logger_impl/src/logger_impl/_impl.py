@@ -22,7 +22,6 @@ class Logger(logger.Logger):
         if self.notifier and "Threshold exceeded" in message:
             self.notifier.notify(message)
 
-
 def get_logger() -> logger.Logger:
     # Note: The caller should provide the notifier instance
     notifier_instance = notifier.get_notifier()  # This should be injected by the caller

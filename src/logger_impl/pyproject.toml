@@ -9,6 +9,9 @@ dependencies = [
     "notifier",
 ]
 
+
+
+
 [tool.uv.sources]
 logger = { path = "../logger", editable = true }
 notifier = { path = "../notifier", editable = true }

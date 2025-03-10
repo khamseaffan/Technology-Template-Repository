@@ -1,6 +1,6 @@
 """Module for a Notifier implementation."""
 
-import src.notifier.src.notifier as notifier
+import notifier
 
 from . import _impl
 

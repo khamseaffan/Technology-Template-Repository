@@ -1,6 +1,6 @@
 """Protocol for a Logger."""
 
-from typing import Protocol
+from typing import Optional, Protocol
 
 import notifier
 
@@ -8,11 +8,10 @@ import notifier
 class Logger(Protocol):
     """Protocol for logger."""
 
-    def log(self, message: str) -> None:
+    def log(self, message:str) -> None:
         """Log a Message."""
         raise NotImplementedError
 
-
-def get_logger(notifier: notifier.Notifier = None) -> Logger:
+def get_logger(notifier: Optional[notifier.Notifier] = None) -> Logger:
     """Return an instance of a Logger."""
     raise NotImplementedError
