@@ -45,8 +45,8 @@ jobs:
           name: "Run linting and formatting"
           command: |
             source .venv/bin/activate
-            uvx ruff format . -- --fix
-            uvx ruff check . -- --fix
+            uvx ruff format .
+            uvx ruff check .
       - persist_to_workspace:
           root: .
           paths:
