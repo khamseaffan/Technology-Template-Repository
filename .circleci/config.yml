@@ -97,9 +97,6 @@ jobs:
             source .venv/bin/activate
             mkdir -p test-results
             python -m coverage run -m pytest tests/ --junitxml=test-results/junit.xml
-            python -m coverage report
-            python -m coverage xml
-            python -m coverage html
       - run:
           name: "Run static analysis (mypy)"
           command: |
