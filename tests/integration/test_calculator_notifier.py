@@ -4,19 +4,18 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.calculator.calculator_interface import Calculator
 from src.calculator.calculator import SimpleCalculator
-from src.notifier.notifier import SimpleNotifier
-from src.notifier.notifier_interface import Notifier
+import notifier
+from src.calculator.calculator_interface import Calculator
 
 
 @pytest.fixture
-def mock_notifier() -> Notifier:
+def mock_notifier() -> notifier.Notifier:
     """Return a mock notifier."""
-    return MagicMock(spec=SimpleNotifier)
+    return MagicMock(spec=notifier.get_notifier())
 
 
-def test_calculator_notifier(mock_notifier: Notifier) -> None:
+def test_calculator_notifier(mock_notifier: notifier.Notifier) -> None:
     """Test that the calculator calls the notifier."""
     calc: Calculator = SimpleCalculator()
     calc.notifier = mock_notifier

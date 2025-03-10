@@ -1,9 +1,9 @@
-from src.notifier.notifier import SimpleNotifier
+from notifier import get_notifier
 
 
 class NotifierAPI:
     def __init__(self) -> None:
-        self.notifier = SimpleNotifier()
+        self.notifier = get_notifier()
 
     def send_notification(self, message: str) -> dict[str, str]:
         self.notifier.notify(message)

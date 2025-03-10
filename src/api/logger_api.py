@@ -1,9 +1,9 @@
-from src.logger.logger import SimpleLogger
+from logger import get_logger
 
 
 class LoggerAPI:
     def __init__(self) -> None:
-        self.logger = SimpleLogger()
+        self.logger = get_logger()
 
     def log_message(self, message: str) -> dict[str, str]:
         self.logger.log(message)

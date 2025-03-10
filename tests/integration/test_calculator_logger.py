@@ -6,19 +6,18 @@ import pytest
 
 from src.calculator.calculator_interface import Calculator
 from src.calculator.calculator import SimpleCalculator
-from src.logger.logger import SimpleLogger
-from src.logger.logger_interface import Logger
+import logger
 
 
 @pytest.fixture
-def mock_logger() -> Logger:
+def mock_logger() -> logger.Logger:
     """Return a mock logger."""
-    return MagicMock(spec=SimpleLogger)
+    return MagicMock(spec=logger.get_logger())
 
 
-def test_calculator_logs_operation(mock_logger: Logger) -> None:
+def test_calculator_logs_operation(mock_logger: logger.Logger) -> None:
     """Test that the calculator logs operations."""
-    calc: Calculator = SimpleCalculator()
+    calc = SimpleCalculator()
     calc.logger = mock_logger
     result = calc.add(2, 3)
     expected = f"Addition: 2 + 3 = {result}"

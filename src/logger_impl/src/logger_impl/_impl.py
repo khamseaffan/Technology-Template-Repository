@@ -1,5 +1,6 @@
 """Implementation for Logger Module."""
 
+from typing import Optional
 import logger
 import notifier
 
@@ -15,6 +16,14 @@ class Logger(logger.Logger):
 
         """
         self.notifier = notifier_instance
+
+    @property
+    def notifier(self) -> Optional[notifier.Notifier]:
+        return self._notifier
+    
+    @notifier.setter
+    def notifier(self, value: Optional[notifier.Notifier]) -> None:
+        self._notifier = value
 
     def log(self, message: str) -> None:
         """Log a message."""

@@ -1,14 +1,15 @@
 from typing import NoReturn
+from notifier import get_notifier
+from logger import get_logger
 from src.calculator.calculator import SimpleCalculator
-from src.logger.logger import SimpleLogger
-from src.notifier.notifier import SimpleNotifier
+
 
 
 class CalculatorAPI:
     def __init__(self) -> None:
         self.calculator = SimpleCalculator()
-        self.logger = SimpleLogger()
-        self.notifier = SimpleNotifier()
+        self.logger = get_logger()
+        self.notifier = get_notifier()
 
     def calculate(
         self, operation: str, num1: float, num2: float

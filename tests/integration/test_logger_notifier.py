@@ -4,20 +4,20 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.notifier.notifier_interface import Notifier
-from src.logger.logger import SimpleLogger
-from src.notifier.notifier import SimpleNotifier
+import notifier
+from logger import get_logger 
+
 
 
 @pytest.fixture
-def mock_notifier() -> Notifier:
+def mock_notifier() -> notifier.Notifier:
     """Return a mock notifier."""
-    return MagicMock(spec=SimpleNotifier)
+    return MagicMock(spec=notifier.get_notifier())
 
 
-def test_logger_triggers_notification(mock_notifier: Notifier) -> None:
+def test_logger_triggers_notification(mock_notifier: notifier.Notifier) -> None:
     """Test that the logger triggers the notifier."""
-    logger = SimpleLogger()
+    logger = get_logger()
     logger.notifier = mock_notifier
     logger.log("Threshold exceeded")
     assert isinstance(mock_notifier.notify, MagicMock)
