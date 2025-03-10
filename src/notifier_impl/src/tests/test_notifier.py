@@ -4,6 +4,7 @@ from notifier_impl._impl import Notifier
 
 """Test the Notifier class."""
 
+
 def test_notify(capsys: pytest.CaptureFixture[str]) -> None:
     """Test the notify method."""
     notifier = SimpleNotifier()

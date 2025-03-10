@@ -10,6 +10,7 @@ class Notifier(Protocol):
         """Output a Notification Message."""
         raise NotImplementedError
 
+
 def get_notifier() -> Notifier:
     """Return an instance of a Notifier."""
     raise NotImplementedError
