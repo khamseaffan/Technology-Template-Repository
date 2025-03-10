@@ -139,8 +139,12 @@ jobs:
           name: "Summarize test results"
           command: |
             echo "Summary of test execution:"
-            grep -o 'tests passed' test-results/junit.xml | wc -l | awk '{print "Number of passed tests: " $1}'
-            grep -o 'failures' test-results/junit.xml | wc -l | awk '{print "Number of failed tests: " $1}'
+            if [ -f test-results/junit.xml ]; then
+                grep -o 'tests passed' test-results/junit.xml | wc -l | awk '{print "Number of passed tests: " $1}'
+                grep -o 'failures' test-results/junit.xml | wc -l | awk '{print "Number of failed tests: " $1}'
+            else
+                echo "Warning: test-results/junit.xml not found. Skipping summary."
+            fi
       - run:
           name: "Summarize code coverage"
           command: |
