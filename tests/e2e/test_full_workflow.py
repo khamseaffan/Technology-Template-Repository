@@ -1,6 +1,7 @@
 """Module for end-to-end tests."""
 
 import pytest
+
 from src.calculator.calculator import SimpleCalculator
 from src.logger.logger import SimpleLogger
 from src.notifier.notifier import SimpleNotifier

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from .notifier_interface import Notifier
 
 """Module for notifier functionality."""
