@@ -35,11 +35,11 @@ ignore = [
 "tests/**/*.py" = ["S101", "ANN001", "ANN201"]
 
 [tool.uv.workspace]
-members = ["src/notifier_impl"]
+members = ["src/notifier_impl", "src/logger_impl"]
 
 [tool.pytest.ini_options]
 pythonpath = [
     "src/notifier_impl/src",
-    "src/calculator/src",
-    "src/logger/src"
+    "src/calculator_impl/src",
+    "src/logger_impl/src"
 ]

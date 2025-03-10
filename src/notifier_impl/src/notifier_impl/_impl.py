@@ -1,4 +1,7 @@
+"""Implementation for Notifier Module."""
+
 import notifier
+
 
 class Notifier(notifier.Notifier):
     """Notifier class for sending notifications."""
