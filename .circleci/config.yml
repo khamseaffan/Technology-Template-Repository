@@ -62,34 +62,34 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: "Ensure virtual environment exists and activate"
-          command: |
-            if ! command -v uv &> /dev/null; then
-              echo "UV not found. Installing..."
-              curl -LsSf https://astral.sh/uv/install.sh | sh
-              echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
-              source $BASH_ENV
+        name: "Ensure virtual environment exists and activate"
+        command: |
+          if ! command -v uv &> /dev/null; then
+            echo "UV not found. Installing..."
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+            source $BASH_ENV
+          fi
+          if [ ! -d ".venv" ] || [ ! -f ".venv/bin/python3" ]; then
+            echo "Virtual environment is missing or broken. Recreating..."
+            uv venv .venv
+            source .venv/bin/activate
+            python -m ensurepip --default-pip
+            uv sync
+            uv pip install coverage pytest
+          else
+            source .venv/bin/activate
+            if ! python -c "import coverage" &> /dev/null; then
+              echo "Coverage module missing. Reinstalling..."
+              uv pip install coverage pytest
             fi
-
-            if [ ! -d ".venv" ] || [ ! -f ".venv/bin/python3" ]; then
-              echo "Virtual environment is missing or broken. Recreating..."
-              uv venv .venv
-              source .venv/bin/activate
-              python -m ensurepip --default-pip
-              uv sync
-              uv pip install coverage
-            else
-              source .venv/bin/activate
-              if ! python -c "import coverage" &> /dev/null; then
-                echo "Coverage module missing. Reinstalling..."
-                uv pip install coverage
-              fi
-            fi
+          fi
       - run:
           name: "Execute test suite"
           command: |
             source .venv/bin/activate
             mkdir -p test-results
+            python -m coverage run -m pytest tests/ --junitxml=test-results/junit.xml
 
             echo "Running API tests..."
             python -m coverage run -m pytest tests/api/ --junitxml=test-results/api-tests.xml -v --tb=short || true
