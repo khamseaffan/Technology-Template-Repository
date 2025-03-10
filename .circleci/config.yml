@@ -108,6 +108,7 @@ jobs:
           command: |
             source .venv/bin/activate
             python -m coverage report --fail-under=85
+            python -m coverage xml
       - run:
           name: "Execute nose2 tests (Optional)"
           command: |
@@ -146,7 +147,11 @@ jobs:
           name: "Summarize code coverage"
           command: |
             echo "Code coverage report:"
-            cat coverage.xml | grep -o 'line-rate="[^"]*"' | head -n 1
+            if [ -f coverage.xml ]; then
+                cat coverage.xml | grep -o 'line-rate="[^"]*"' | head -n 1
+            else
+                echo "Warning: coverage.xml not found. Skipping summary."
+            fi
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
