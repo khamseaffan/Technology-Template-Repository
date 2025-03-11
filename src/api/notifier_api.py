@@ -2,9 +2,12 @@ from notifier import get_notifier
 
 
 class NotifierAPI:
-    def __init__(self) -> None:
-        self.notifier = get_notifier()
+    """API class to manage notification functionalities."""
 
-    def send_notification(self, message: str) -> dict[str, str]:
-        self.notifier.notify(message)
-        return {"status": "notified", "message": message}
+    def __init__(self) -> None:
+        """Initialize the NotifierAPI with necessary attributes."""
+        self.notifier = Notifier()
+
+    def send_notification(self, recipient: str, message: str) -> bool:
+        """Send a notification to a recipient."""
+        return self.notifier.notify(recipient, message)

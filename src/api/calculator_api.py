@@ -6,7 +6,10 @@ from src.calculator.calculator import Calculator
 
 
 class CalculatorAPI:
+    """A simple API for performing calculator operations."""
+
     def __init__(self) -> None:
+        """Initialize the CalculatorAPI with a calculator and logger."""
         self.calculator = Calculator()
         self.logger = get_logger()
         self.notifier = get_notifier()

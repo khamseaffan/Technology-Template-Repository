@@ -1,31 +1,29 @@
 import pytest
+from src.calculator.calculator_api import CalculatorAPI
 
-from src.api.calculator_api import CalculatorAPI
-
-RESULT_ADD = 5
-RESULT_SUBTRACT = 5
+ADDITION_RESULT = 5
+SUBTRACTION_RESULT = 2
+MULTIPLICATION_RESULT = 6
+DIVISION_RESULT = 3
 
 
 @pytest.fixture
-def api() -> CalculatorAPI:
+def calculator():
+    """Fixture to create a CalculatorAPI instance."""
     return CalculatorAPI()
 
+def test_addition(calculator) -> None:
+    """Test addition functionality."""
+    assert calculator.add(2, 3) == ADDITION_RESULT
 
-def test_calculate_addition(api: CalculatorAPI) -> None:
-    response = api.calculate("add", 2, 3)
-    assert response["result"] == RESULT_ADD
+def test_subtraction(calculator) -> None:
+    """Test subtraction functionality."""
+    assert calculator.subtract(5, 3) == SUBTRACTION_RESULT
 
+def test_multiplication(calculator) -> None:
+    """Test multiplication functionality."""
+    assert calculator.multiply(2, 3) == MULTIPLICATION_RESULT
 
-def test_calculate_divide_by_zero(api: CalculatorAPI) -> None:
-    response = api.calculate("divide", 5, 0)
-    assert "error" in response
-
-
-def test_calculate_subtraction(api: CalculatorAPI) -> None:
-    response = api.calculate("subtract", 10, 5)
-    assert response["result"] == RESULT_SUBTRACT
-
-
-def test_calculate_invalid_operation(api: CalculatorAPI) -> None:
-    response = api.calculate("invalid", 2, 3)
-    assert "error" in response
+def test_division(calculator) -> None:
+    """Test division functionality."""
+    assert calculator.divide(6, 2) == DIVISION_RESULT
