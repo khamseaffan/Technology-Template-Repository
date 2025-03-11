@@ -63,7 +63,8 @@ class CalculatorImpl(calculator.Calculator):
     def divide(self, a: float, b: float) -> float:
         """Return the division of a by b."""
         if b == 0:
-            raise ValueError("Cannot divide by zero")
+            error_message = "Cannot divide by zero"
+            raise ValueError(error_message)
         result = a / b
         if self._notifier:
             self._notifier.notify(result)
