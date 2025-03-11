@@ -2,7 +2,7 @@
 
 import pytest
 
-import calculator
+import calculator  # type: ignore
 import logger
 import notifier
 

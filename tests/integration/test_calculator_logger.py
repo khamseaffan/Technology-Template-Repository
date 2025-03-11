@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-import calculator
+import calculator # type: ignore
 import logger
 import notifier
 
@@ -15,7 +15,7 @@ def mock_notifier() -> notifier.Notifier:
 
 
 @pytest.fixture
-def calculator_with_mock_logger(mock_notifier: notifier.Notifier) :
+def calculator_with_mock_logger(mock_notifier: notifier.Notifier) -> calculator.Calculator:
     """Return an instance of CalculatorImpl with a mock logger."""
     logger_instance = logger.get_logger(mock_notifier)
     # logger_instance.notifier_instance =
@@ -25,7 +25,7 @@ def calculator_with_mock_logger(mock_notifier: notifier.Notifier) :
     return calc
 
 
-def test_calculator_logs_operation(calculator_with_mock_logger, capsys: pytest.CaptureFixture[str]) -> None:
+def test_calculator_logs_operation(calculator_with_mock_logger: calculator.Calculator, capsys: pytest.CaptureFixture[str]) -> None:
     """Test that the calculator logs operations."""
     result = calculator_with_mock_logger.add(2, 3)
     expected = f"Addition: 2 + 3 = {result}"
