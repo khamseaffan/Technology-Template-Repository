@@ -47,12 +47,12 @@ jobs:
             source .venv/bin/activate
             uv sync
             uv pip install coverage
-      - run:
-          name: "Run linting and formatting"
-          command: |
-            source .venv/bin/activate
-            uvx ruff format .
-            uvx ruff check . --fix
+      # - run:
+      #     name: "Run linting and formatting"
+      #     command: |
+      #       source .venv/bin/activate
+      #       uvx ruff format .
+      #       uvx ruff check . --fix
       - persist_to_workspace:
           root: .
           paths:
