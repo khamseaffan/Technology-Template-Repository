@@ -2,7 +2,7 @@
 
 from typing import Protocol, Any, Optional
 import notifier
-
+import logger
 
 class Calculator(Protocol):
     """Protocol for calculator."""
@@ -15,6 +15,16 @@ class Calculator(Protocol):
     @notifier_instance.setter
     def notifier_instance(self, value: Optional[notifier.Notifier]) -> None:
         """Set the notifier instance."""
+        raise NotImplementedError
+    
+    @property
+    def logger_instance(self) -> Optional[logger.Logger]:
+        """Get the logger instance."""
+        raise NotImplementedError
+    
+    @logger_instance.setter
+    def logger_instance(self, value: Optional[logger.Logger]) -> None:
+        """Set the logger instance."""
         raise NotImplementedError
 
     def add(self, a: Any, b: Any) -> Any:

@@ -1,5 +1,5 @@
 [project]
-name = "notifier-impl"
+name = "notifier_impl"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"

@@ -6,4 +6,4 @@ import calculator
 from . import _impl
 
 
-calculator.get_calculator = lambda: _impl.Calculator()
+calculator.get_calculator = lambda: _impl.CalculatorImpl()

@@ -1,12 +1,8 @@
 """Module for a Logger implementation."""
 
-from typing import Optional
-
-import logger
+import logger  # ✅ Import logger module
 import notifier
-
-from ._impl import Logger
-
+from ._impl import LoggerImpl  # ✅ Ensure correct import
 
 def get_logger_impl(
     notifier_instance: notifier.Notifier | None = None,
@@ -14,7 +10,7 @@ def get_logger_impl(
     """Return a Logger with an optional notifier parameter."""
     if notifier_instance is None:
         notifier_instance = notifier.get_notifier()
-    return Logger(notifier_instance)
+    return LoggerImpl(notifier_instance)  # ✅ Ensure LoggerImpl is returned
 
-
-logger.get_logger = get_logger_impl  # type: ignore[assignment]
+# ✅ Ensure `get_logger()` is overridden properly
+logger.get_logger = get_logger_impl

@@ -5,21 +5,40 @@ from unittest.mock import MagicMock
 import pytest
 
 import logger
-from src.calculator.calculator import Calculator
+import logger_impl
+import calculator
+import calculator_impl
+import notifier
 
 
 @pytest.fixture
 def mock_logger() -> logger.Logger:
     """Return a mock logger."""
-    return MagicMock(spec=logger.get_logger())
+    return MagicMock(spec=logger.Logger, autospec=True)
+
+@pytest.fixture
+def mock_notifier() -> notifier.Notifier:
+    """Return a mock notifier."""
+    return MagicMock(spec=notifier.Notifier, autospec=True)
 
 
-def test_calculator_logs_operation(mock_logger: logger.Logger) -> None:
+@pytest.fixture
+def calculator_with_mock_logger(mock_notifier: notifier.Notifier) :
+    """Return an instance of CalculatorImpl with a mock logger."""
+    logger_instance = logger.get_logger(mock_notifier)
+    # logger_instance.notifier_instance = 
+    calc = calculator.get_calculator() 
+     # Use the implemented function
+    calc.logger_instance = logger_instance  # Ensure mock logger is assigned
+    return calc
+
+
+def test_calculator_logs_operation(calculator_with_mock_logger, capsys: pytest.CaptureFixture[str]) -> None:
     """Test that the calculator logs operations."""
-    calc = Calculator()
-    calc.logger = mock_logger
-    result = calc.add(2, 3)
+    result = calculator_with_mock_logger.add(2, 3)
     expected = f"Addition: 2 + 3 = {result}"
 
-    assert isinstance(mock_logger.log, MagicMock)
-    mock_logger.log.assert_called_with(expected)
+    captured = capsys.readouterr()
+    assert f"LOG: {expected}" in captured.out
+    assert result == 5
+

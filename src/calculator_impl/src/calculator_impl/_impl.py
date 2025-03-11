@@ -2,6 +2,7 @@
 
 import calculator  
 import notifier
+import logger
 
 
 class CalculatorImpl(calculator.Calculator):
@@ -9,7 +10,8 @@ class CalculatorImpl(calculator.Calculator):
 
     def __init__(self) -> None:
         """Initialize instance."""
-        self._notifier = None  # Default is no notifier
+        self._notifier = None 
+        self._logger = None
 
     @property
     def notifier_instance(self) -> notifier.Notifier | None:
@@ -21,11 +23,23 @@ class CalculatorImpl(calculator.Calculator):
         """Set the notifier instance."""
         self._notifier = value
 
+    @property
+    def logger_instance(self) -> logger.Logger | None:
+        """Get the logger instance."""
+        return self._logger
+
+    @logger_instance.setter
+    def logger_instance(self, value: logger.Logger | None) -> None:
+        """Set the logger instance."""
+        self._logger = value
+
     def add(self, a: float, b: float) -> float:
         """Return the sum of a and b."""
         result = a + b
         if self._notifier:
             self._notifier.notify(result)
+        if self._logger:
+            self._logger.log(f"Addition: {a} + {b} = {result}")
         return result
 
     def subtract(self, a: float, b: float) -> float:
@@ -33,6 +47,8 @@ class CalculatorImpl(calculator.Calculator):
         result = a - b
         if self._notifier:
             self._notifier.notify(result)
+        if self._logger:
+            self._logger.log(f"Subtraction: {a} - {b} = {result}")
         return result
 
     def multiply(self, a: float, b: float) -> float:
@@ -40,6 +56,8 @@ class CalculatorImpl(calculator.Calculator):
         result = a * b
         if self._notifier:
             self._notifier.notify(result)
+        if self._logger:
+            self._logger.log(f"Multiplication: {a} * {b} = {result}")
         return result
 
     def divide(self, a: float, b: float) -> float:
@@ -49,6 +67,8 @@ class CalculatorImpl(calculator.Calculator):
         result = a / b
         if self._notifier:
             self._notifier.notify(result)
+        if self._logger:
+            self._logger.log(f"Division: {a} / {b} = {result}")
         return result
 
 

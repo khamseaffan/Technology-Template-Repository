@@ -1,5 +1,5 @@
 [project]
-name = "logger-impl"
+name = "logger_impl"
 version = "0.1.0"
 description = "Implementation of the Logger Protocol"
 readme = "README.md"
