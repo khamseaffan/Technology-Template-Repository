@@ -35,12 +35,13 @@ ignore = [
     "COM812",  # Suggested by ruff to disable it to avoid unexpected behavior
     "PIE790", # Ignore unnecessary pass statement in interfaces
     "ANN401", # Ignore dynamically typed expression are disallowed in interfaces
-    F401", # Module imported but unused
+    "F401", # Module imported but unused
     "F823", # Local variable name shadows a built-in name
     "PLR2004", # Too many branches
     "ERA001", # File is not encoded with UTF-8
     "F841", # Local variable assigned but not used
-    "F821" # Undefined name
+    "F821", # Undefined name
+    "PGH003" # Use specific rule codes when ignoring type issues
 ]
 
 [tool.ruff.lint.per-file-ignores]

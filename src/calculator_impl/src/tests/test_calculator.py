@@ -1,5 +1,5 @@
 
-import calculator # type: ignore
+import calculator  # type: ignore
 
 """Unit tests for the calculator module."""
 

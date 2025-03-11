@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-import calculator # type: ignore
+import calculator  # type: ignore
 import logger
 from src.notifier_impl.src.notifier_impl._impl import get_notifier
 

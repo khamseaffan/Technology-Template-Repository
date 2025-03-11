@@ -1,6 +1,6 @@
 """Implementation for Calculator Module."""
 
-import calculator # type: ignore
+import calculator  # type: ignore
 import logger
 import notifier
 

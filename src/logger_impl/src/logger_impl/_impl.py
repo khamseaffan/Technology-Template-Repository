@@ -27,12 +27,12 @@ class LoggerImpl(logger.Logger):
     def log(self, message: str) -> None:
         """Log a message."""
         print(f"LOG: {message}")
-        if self.notifier_instance and "Threshold exceeded" in message:  # ✅ Correct attribute name
+        if self.notifier_instance and "Threshold exceeded" in message:
             self.notifier_instance.notify(message)
 
 
 def get_logger(notifier_instance: notifier.Notifier | None = None) -> logger.Logger:
     """Return an instance of LoggerImpl with optional notifier."""
     if notifier_instance is None:
-        notifier_instance = notifier.get_notifier()  # ✅ Only create if not provided
+        notifier_instance = notifier.get_notifier()
     return LoggerImpl(notifier_instance)

@@ -13,6 +13,7 @@ jobs:
   build:
     macos:
       xcode: "15.4.0"
+    resource_class: macos.m1.medium.gen1
     steps:
       - checkout
       - run:
@@ -44,6 +45,7 @@ jobs:
   test:
     macos:
       xcode: "15.4.0"
+    resource_class: macos.m1.medium.gen1
     environment:
       PYTHONPATH: .
     steps:
@@ -113,6 +115,7 @@ jobs:
   report-results:
     macos:
       xcode: "15.4.0"
+    resource_class: macos.m1.medium.gen1
     steps:
       - checkout
       - attach_workspace:

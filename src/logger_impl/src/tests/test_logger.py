@@ -14,7 +14,8 @@ def mock_notifier() -> notifier.Notifier:
     return MagicMock(spec=notifier.Notifier, autospec=True)
 
 
-def test_log(mock_notifier: notifier.Notifier, capsys: pytest.CaptureFixture[str]) -> None:
+def test_log(mock_notifier: notifier.Notifier,
+             capsys: pytest.CaptureFixture[str]) -> None:
     """Test the log method."""
     # Dependency injection of notifier
     logger_instance = logger.get_logger(mock_notifier)
@@ -23,7 +24,8 @@ def test_log(mock_notifier: notifier.Notifier, capsys: pytest.CaptureFixture[str
     assert "LOG: Test message" in captured.out
 
 
-def test_log_threshold_exceeded(mock_notifier: notifier.Notifier, capsys: pytest.CaptureFixture[str]) -> None:
+def test_log_threshold_exceeded(mock_notifier: notifier.Notifier,
+                                capsys: pytest.CaptureFixture[str]) -> None:
     """Test the log method when threshold is exceeded."""
     # Dependency injection of notifier
     logger_instance = logger.get_logger(mock_notifier)
