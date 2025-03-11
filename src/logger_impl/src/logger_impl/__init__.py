@@ -3,7 +3,6 @@
 import logger
 import notifier
 
-from typing import Optional
 from ._impl import Logger
 
 

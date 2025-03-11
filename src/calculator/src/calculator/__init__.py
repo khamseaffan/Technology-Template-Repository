@@ -18,11 +18,11 @@ class Calculator(Protocol):
         raise NotImplementedError
 
     def add(self, a: Any, b: Any) -> Any:
-        """Adds two objects together."""
+        """Add two objects together."""
         raise NotImplementedError
 
     def subtract(self, a: Any, b: Any) -> Any:
-        """Subtracts two objects."""
+        """Subtract two objects."""
         raise NotImplementedError
 
     def multiply(self, a: Any, b: Any) -> Any:
@@ -30,7 +30,7 @@ class Calculator(Protocol):
         raise NotImplementedError
 
     def divide(self, a: Any, b: Any) -> Any:
-        """Divides two objects."""
+        """Divide two objects."""
         raise NotImplementedError
 
 

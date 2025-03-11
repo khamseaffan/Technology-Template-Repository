@@ -24,6 +24,7 @@ def test_calculator_notifier(calculator_with_mock_notifier: CalculatorImpl, mock
     """Test that the calculator calls the notifier."""
     result = calculator_with_mock_notifier.add(2, 3)
 
-    assert result == 5
+    EXPECTED_RESULT = 5
+    assert result == EXPECTED_RESULT 
     assert isinstance(mock_notifier.notify, MagicMock)
     mock_notifier.notify.assert_called_with(5)  # Ensure notify(5) was called
