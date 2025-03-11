@@ -42,11 +42,17 @@ jobs:
             uv pip install coverage pytest mypy ruff
             echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
       - run:
+          name: "Install dependencies"
+          command: |
+            source .venv/bin/activate
+            uv sync
+            uv pip install coverage
+      - run:
           name: "Run linting and formatting"
           command: |
             source .venv/bin/activate
-            ruff format .
-            ruff check . --fix
+            uvx ruff format .
+            uvx ruff check .
       - persist_to_workspace:
           root: .
           paths:
@@ -90,14 +96,7 @@ jobs:
           command: |
             source .venv/bin/activate
             mkdir -p test-results
-            echo "Running API tests..."
-            python -m coverage run -m pytest tests/api/ --junitxml=test-results/api-tests.xml -v --tb=short || true
-
-            echo "Running unit tests..."
-            python -m coverage run -m pytest tests/unit/ --junitxml=test-results/unit-tests.xml -v --tb=short || true
-
-            echo "Running integration tests..."
-            python -m coverage run -m pytest tests/integration/ --junitxml=test-results/integration-tests.xml -v --tb=short || true
+            python -m coverage run -m pytest tests/ --junitxml=test-results/junit.xml
       - run:
           name: "Run static analysis (mypy)"
           command: |
@@ -123,12 +122,6 @@ jobs:
             fi
       - store_test_results:
           path: test-results
-      - store_artifacts:
-          path: test-results/api-tests.xml
-      - store_artifacts:
-          path: test-results/unit-tests.xml
-      - store_artifacts:
-          path: test-results/integration-tests.xml
       - store_artifacts:
           path: htmlcov
       - store_artifacts:

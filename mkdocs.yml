@@ -22,7 +22,6 @@ nav:
       - Notifier: docs/components/notifier.md
   - Testing:
       - Running Tests: docs/testing.md
-  - API Reference: docs/api.md
   - Setup Guide: docs/setup.md
 
 markdown_extensions:
