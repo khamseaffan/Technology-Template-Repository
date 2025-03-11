@@ -1,6 +1,6 @@
 """Module for a Calculator implementation."""
 
-import calculator # type: ignore
+import calculator
 
 from . import _impl
 

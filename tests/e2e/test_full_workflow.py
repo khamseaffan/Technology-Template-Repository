@@ -1,10 +1,12 @@
 """Module for end-to-end tests."""
 
-import pytest
 
-import calculator  # type: ignore
+import calculator
 import logger
 import notifier
+import pytest
+import calculator_impl
+import logger_impl
 
 
 @pytest.fixture

@@ -4,10 +4,16 @@ from unittest.mock import MagicMock
 
 import pytest
 
-import calculator  # type: ignore
+import calculator
+import calculator_impl
 import logger
+import logger_impl
 from src.notifier_impl.src.notifier_impl._impl import get_notifier
 
+# @pytest.fixture
+# def mock_notifier() -> notifier.Notifier:
+#     """Return a mock notifier."""
+#     return MagicMock(spec=notifier.Notifier, autospec=True)
 
 @pytest.fixture
 def mock_calculator() -> calculator.Calculator:
