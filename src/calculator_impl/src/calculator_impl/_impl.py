@@ -10,23 +10,19 @@ class Calculator(calculator.Calculator):
 
     def add(self, a: float, b: float) -> float:
         """Return the sum of a and b."""
-        result = a + b
-        return result
-
+        return a + b
+    
     def subtract(self, a: float, b: float) -> float:
         """Return the difference of a and b."""
-        result = a - b
-        return result
+        return a - b
 
     def multiply(self, a: float, b: float) -> float:
         """Return the product of a and b."""
-        result = a * b
-        return result
+        return a * b
 
     def divide(self, a: float, b: float) -> float:
         """Return the division of a by b."""
-        result = a // b
-        return result
-    
+        return a // b
+
 def get_calculator() -> calculator.Calculator:
     return Calculator()
