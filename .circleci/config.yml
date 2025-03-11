@@ -39,7 +39,7 @@ jobs:
             source .venv/bin/activate
             python -m ensurepip --default-pip
             uv sync
-            uv pip install coverage pytest mypy ruff
+            uv pip install coverage pytest ruff mypy
             echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
       - run:
           name: "Install dependencies"
@@ -62,7 +62,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     environment:
-      PYTHONPATH: /home/circleci/project/src 
+      PYTHONPATH: .
     steps:
       - checkout
       - attach_workspace:
@@ -91,6 +91,17 @@ jobs:
                 uv pip install coverage
               fi
             fi
+      - run:
+          name: Set PYTHONPATH
+          command: echo "export PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $BASH_ENV
+      - run:
+          name: Build and Install Dependencies
+          command: |
+            uv venv .venv
+            source .venv/bin/activate 
+            uv pip install --upgrade uv
+            uv pip install -e .
+            uv build
       - run:
           name: "Execute test suite"
           command: |

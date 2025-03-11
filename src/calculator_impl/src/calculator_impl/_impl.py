@@ -5,13 +5,13 @@ import logger
 import notifier
 
 
-class CalculatorImpl(calculator.Calculator):
+class CalculatorImpl(calculator.Calculator): # type: ignore
     """Concrete implementation of the Calculator."""
 
     def __init__(self) -> None:
         """Initialize instance."""
-        self._notifier = None
-        self._logger = None
+        self._notifier: notifier.Notifier | None = None
+        self._logger: logger.Logger | None = None
 
     @property
     def notifier_instance(self) -> notifier.Notifier | None:
@@ -37,7 +37,7 @@ class CalculatorImpl(calculator.Calculator):
         """Return the sum of a and b."""
         result = a + b
         if self._notifier:
-            self._notifier.notify(result)
+            self._notifier.notify(str(result))
         if self._logger:
             self._logger.log(f"Addition: {a} + {b} = {result}")
         return result
@@ -46,7 +46,7 @@ class CalculatorImpl(calculator.Calculator):
         """Return the difference of a and b."""
         result = a - b
         if self._notifier:
-            self._notifier.notify(result)
+            self._notifier.notify(str(result))
         if self._logger:
             self._logger.log(f"Subtraction: {a} - {b} = {result}")
         return result
@@ -55,7 +55,7 @@ class CalculatorImpl(calculator.Calculator):
         """Return the product of a and b."""
         result = a * b
         if self._notifier:
-            self._notifier.notify(result)
+            self._notifier.notify(str(result))
         if self._logger:
             self._logger.log(f"Multiplication: {a} * {b} = {result}")
         return result
@@ -67,7 +67,7 @@ class CalculatorImpl(calculator.Calculator):
             raise ValueError(error_message)
         result = a / b
         if self._notifier:
-            self._notifier.notify(result)
+            self._notifier.notify(str(result))
         if self._logger:
             self._logger.log(f"Division: {a} / {b} = {result}")
         return result
