@@ -1,153 +1,80 @@
 version: 2.1
 
 jobs:
-  say-hello:
-    macos:
-      xcode: "15.4.0"
-    resource_class: macos.m1.medium.gen1 
-    steps:
-      - checkout
-      - run:
-          name: "Print a test message"
-          command: "echo The CI/CD pipeline has been successfully initiated."
-
   build:
-    macos:
-      xcode: "15.4.0"
-    resource_class: macos.m1.medium.gen1
+    docker:
+      - image: cimg/python:3.12
+    environment:
+      PYTHONPATH: /home/circleci/project/src  # Add here too for build steps
     steps:
       - checkout
       - run:
-          name: "Install UV and Add to Path"
+          name: "Install UV"
           command: |
             curl -LsSf https://astral.sh/uv/install.sh | sh
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
-            source $BASH_ENV
       - run:
-          name: "Set up virtual environment and install dependencies"
+          name: "Setup environment"
           command: |
             uv venv .venv
             source .venv/bin/activate
-            python -m ensurepip --default-pip
-            uv sync
-            uv pip install coverage pytest 
-            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
-      - run:
-          name: "Install dependencies"
-          command: |
-            source .venv/bin/activate
-            uv sync
-            uv pip install coverage
+            uv pip install -r requirements.txt
+            uv pip install pytest mypy ruff coverage
       - persist_to_workspace:
           root: .
           paths:
             - .venv
+            - src
+            - tests
 
   test:
-    macos:
-      xcode: "15.4.0"
-    resource_class: macos.m1.medium.gen1
+    docker:
+      - image: cimg/python:3.12
     environment:
-      PYTHONPATH: $(pwd)/src
+      PYTHONPATH: /home/circleci/project/src  # Critical for imports
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
-          name: "Ensure virtual environment exists and activate"
-          command: |
-            if ! command -v uv &> /dev/null; then
-              echo "UV not found. Installing..."
-              curl -LsSf https://astral.sh/uv/install.sh | sh
-              echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
-              source $BASH_ENV
-            fi
-
-            if [ ! -d ".venv" ] || [ ! -f ".venv/bin/python3" ]; then
-              echo "Virtual environment is missing or broken. Recreating..."
-              uv venv .venv
-              source .venv/bin/activate
-              python -m ensurepip --default-pip
-              uv sync
-              uv pip install coverage
-            else
-              source .venv/bin/activate
-              if ! python -c "import coverage" &> /dev/null; then
-                echo "Coverage module missing. Reinstalling..."
-                uv pip install coverage
-              fi
-            fi
-      - run:
-          name: "Execute test suite"
+          name: "Activate environment"
           command: |
             source .venv/bin/activate
-            mkdir -p test-results
-            python -m coverage run -m pytest tests/ --junitxml=test-results/junit.xml
       - run:
-          name: "Run static analysis (mypy)"
+          name: "Run tests"
           command: |
-            source .venv/bin/activate
-            uv pip install mypy  
-            mypy --strict src/
+            pytest tests/ --junitxml=test-results/junit.xml --cov=src --cov-report=xml
       - run:
-          name: "Enforce coverage threshold"
+          name: "Type checking"
           command: |
-            source .venv/bin/activate
-            python -m coverage report --fail-under=85
-            python -m coverage xml
-            coverage json -o test-results/coverage.json
-      - run:
-          name: "Execute nose2 tests (Optional)"
-          command: |
-            source .venv/bin/activate
-            uv pip install nose2
-            if command -v nose2 &> /dev/null; then  
-              python -m nose2 --with-coverage
-            else
-              echo "nose2 is not installed. This step will be skipped."
-            fi
+            mypy --strict --config-file mypy.ini src/
       - store_test_results:
           path: test-results
       - store_artifacts:
-          path: htmlcov
-      - store_artifacts:
           path: coverage.xml
 
-  report-results:
-    macos:
-      xcode: "15.4.0"
-    resource_class: macos.m1.medium.gen1
+  report:
+    docker:
+      - image: cimg/python:3.12
     steps:
-      - checkout
       - attach_workspace:
           at: .
       - run:
-          name: "Summarize test results"
+          name: "Coverage report"
           command: |
-            echo "Summary of test execution:"
-            if [ -f test-results/junit.xml ]; then
-                grep -o 'tests passed' test-results/junit.xml | wc -l | awk '{print "Number of passed tests: " $1}'
-                grep -o 'failures' test-results/junit.xml | wc -l | awk '{print "Number of failed tests: " $1}'
-            else
-                echo "Warning: test-results/junit.xml not found. Skipping summary."
-            fi
-      - run:
-          name: "Summarize code coverage"
-          command: |
-            echo "Code coverage report:"
-            if [ -f coverage.xml ]; then
-                cat coverage.xml | grep -o 'line-rate="[^"]*"' | head -n 1
-            else
-                echo "Warning: coverage.xml not found. Skipping summary."
-            fi
+            python -m coverage report --fail-under=85
+            python -m coverage html
+      - store_artifacts:
+          path: htmlcov
 
 workflows:
-  ci-pipeline:
+  version: 2
+  build-test-report:
     jobs:
       - build
       - test:
           requires:
             - build
-      - report-results:
+      - report:
           requires:
             - test
