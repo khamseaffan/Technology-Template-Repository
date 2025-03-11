@@ -27,6 +27,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Clear Python Cache"
+          command: |
+            find . -name "*.pyc" -exec rm -f {} \;
+
+      - run:
           name: "Install UV and Add to Path"
           command: |
             curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -52,7 +57,7 @@ jobs:
           command: |
             source .venv/bin/activate
             uvx ruff format .
-            uvx ruff check . 
+            uvx ruff check .
       - persist_to_workspace:
           root: .
           paths:
