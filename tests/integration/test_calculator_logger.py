@@ -1,5 +1,5 @@
 """Module for integration tests: calculator logging."""
-
+from unittest.mock import MagicMock
 import pytest
 import logger
 import logger_impl
@@ -8,10 +8,6 @@ import calculator_impl
 import notifier
 
 
-@pytest.fixture
-def mock_logger() -> logger.Logger:
-    """Return a mock logger."""
-    return MagicMock(spec=logger.Logger, autospec=True)
 
 @pytest.fixture
 def mock_notifier() -> notifier.Notifier:
