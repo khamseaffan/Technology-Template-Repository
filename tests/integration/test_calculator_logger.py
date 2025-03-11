@@ -1,10 +1,9 @@
 """Module for integration tests: calculator logging."""
 
-from unittest.mock import MagicMock
-
 import pytest
-
 import logger
+
+from unittest.mock import MagicMock
 from src.calculator.calculator import Calculator
 
 

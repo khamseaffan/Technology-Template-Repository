@@ -1,7 +1,7 @@
 """Protocol for a Calculator."""
 
-from typing import Protocol, Any, Optional
 import notifier
+from typing import Any, Optional, Protocol
 
 
 class Calculator(Protocol):

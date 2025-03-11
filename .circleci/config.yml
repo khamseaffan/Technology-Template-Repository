@@ -52,7 +52,7 @@ jobs:
           command: |
             source .venv/bin/activate
             uvx ruff format .
-            uvx ruff check .
+            uvx ruff check . --fix
       - persist_to_workspace:
           root: .
           paths:

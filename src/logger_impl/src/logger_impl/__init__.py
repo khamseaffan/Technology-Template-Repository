@@ -1,10 +1,9 @@
 """Module for a Logger implementation."""
 
-from typing import Optional
-
 import logger
 import notifier
 
+from typing import Optional
 from ._impl import Logger
 
 

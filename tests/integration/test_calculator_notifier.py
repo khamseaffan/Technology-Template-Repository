@@ -1,8 +1,8 @@
 """Module for integration tests: calculator notifier."""
 
-from unittest.mock import MagicMock
 import pytest
 import notifier
+from unittest.mock import MagicMock
 from src.calculator_impl.src.calculator_impl._impl import CalculatorImpl, get_calculator  # Import from calculator_impl
 
 
