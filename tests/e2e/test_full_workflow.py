@@ -2,20 +2,24 @@
 
 import pytest
 
-import logger
-import notifier
 import calculator 
+import calculator_impl
+import logger
+import logger_impl
+import notifier
+from src.notifier_impl.src.notifier_impl._impl import get_notifier
+
 
 
 @pytest.fixture
 def components() -> tuple[calculator.Calculator, logger.Logger, notifier.Notifier]:
     """Return components for full workflow testing."""
-    logger = logger.get_logger()
-    notifier = notifier.get_notifier()
-    calc = calculator.Calculator()
-    calc.logger = logger
-    calc.notifier = notifier
-    return (calc, logger, notifier)
+    logger_instance = logger.get_logger()
+    notifier_instance = notifier.get_notifier()
+    calc = calculator.get_calculator()
+    calc.logger = logger_instance
+    calc.notifier = notifier_instance
+    return (calc, logger_instance, notifier_instance)
 
 
 def test_full_workflow(
@@ -28,3 +32,5 @@ def test_full_workflow(
     notifier.notify(str(result))
     output = capsys.readouterr().out
     assert "NOTIFICATION:" in output, "Notification message missing in output"
+
+

@@ -45,5 +45,11 @@ members = ["src/notifier_impl", "src/logger_impl"]
 
 [tool.pytest.ini_options]
 pythonpath = [
+    "src/notifier_impl",
+    "src/logger_impl",
+    "src/calculator_impl",
+    "src/calculator", 
+    "src/notifier", 
+    "src/logger", 
     "src",
-]
+    "."] 
