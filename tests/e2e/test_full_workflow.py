@@ -10,7 +10,7 @@ import logger_impl
 
 
 @pytest.fixture
-def components() -> tuple[calculator.Calculator, logger.Logger, notifier.Notifier]:
+def components():
     """Return components for full workflow testing."""
     logger_instance = logger.get_logger()
     notifier_instance = notifier.get_notifier()
@@ -21,7 +21,6 @@ def components() -> tuple[calculator.Calculator, logger.Logger, notifier.Notifie
 
 
 def test_full_workflow(
-    components: tuple[calculator.Calculator, logger.Logger, notifier.Notifier],
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Test the full workflow of the calculator."""

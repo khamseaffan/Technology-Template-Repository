@@ -11,16 +11,16 @@ import notifier
 
 
 @pytest.fixture
-def mock_notifier() -> notifier.Notifier:
+def mock_notifier():
     """Return a mock notifier."""
-    return MagicMock(spec=notifier.Notifier, autospec=True)
+    return MagicMock(spec=notifier, autospec=True)
 
 
 @pytest.fixture
-def calculator_with_mock_logger(mock_notifier: notifier.Notifier) :
+def calculator_with_mock_logger(mock_notifier: notifier) :
     """Return an instance of CalculatorImpl with a mock logger."""
     logger_instance = logger.get_logger(mock_notifier)
-    # logger_instance.notifier_instance =
+    # logger_instance.notifier_instance
     calc = calculator.get_calculator()
      # Use the implemented function
     calc.logger_instance = logger_instance  # Ensure mock logger is assigned
