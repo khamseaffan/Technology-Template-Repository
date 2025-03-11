@@ -1,12 +1,11 @@
 """Module for integration tests: calculator logging."""
 from unittest.mock import MagicMock
-import pytest
-import logger
-import logger_impl
-import calculator
-import calculator_impl
-import notifier
 
+import pytest
+
+import calculator
+import logger
+import notifier
 
 
 @pytest.fixture
@@ -19,8 +18,8 @@ def mock_notifier() -> notifier.Notifier:
 def calculator_with_mock_logger(mock_notifier: notifier.Notifier) :
     """Return an instance of CalculatorImpl with a mock logger."""
     logger_instance = logger.get_logger(mock_notifier)
-    # logger_instance.notifier_instance = 
-    calc = calculator.get_calculator() 
+    # logger_instance.notifier_instance =
+    calc = calculator.get_calculator()
      # Use the implemented function
     calc.logger_instance = logger_instance  # Ensure mock logger is assigned
     return calc

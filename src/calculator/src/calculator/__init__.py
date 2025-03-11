@@ -1,29 +1,31 @@
 """Protocol for a Calculator."""
 
 from typing import Any, Optional, Protocol
-import notifier
+
 import logger
+import notifier
+
 
 class Calculator(Protocol):
     """Protocol for calculator."""
 
     @property
-    def notifier_instance(self) -> Optional[notifier.Notifier]:
+    def notifier_instance(self) -> notifier.Notifier | None:
         """Get the notifier instance."""
         raise NotImplementedError
 
     @notifier_instance.setter
-    def notifier_instance(self, value: Optional[notifier.Notifier]) -> None:
+    def notifier_instance(self, value: notifier.Notifier | None) -> None:
         """Set the notifier instance."""
         raise NotImplementedError
-    
+
     @property
-    def logger_instance(self) -> Optional[logger.Logger]:
+    def logger_instance(self) -> logger.Logger | None:
         """Get the logger instance."""
         raise NotImplementedError
-    
+
     @logger_instance.setter
-    def logger_instance(self, value: Optional[logger.Logger]) -> None:
+    def logger_instance(self, value: logger.Logger | None) -> None:
         """Set the logger instance."""
         raise NotImplementedError
 

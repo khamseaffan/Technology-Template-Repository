@@ -1,6 +1,7 @@
 """Protocol for a Logger."""
 
 from typing import Optional, Protocol
+
 import notifier
 
 

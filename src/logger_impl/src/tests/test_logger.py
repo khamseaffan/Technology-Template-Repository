@@ -1,12 +1,10 @@
 from unittest.mock import MagicMock
-import pytest
 
-import notifier
+import pytest
 
 # Unused but needed for dependency injection of notifier
 import logger
-import logger_impl
-
+import notifier
 
 """Test the Logger class."""
 

@@ -2,13 +2,9 @@
 
 import pytest
 
-import calculator 
-import calculator_impl
+import calculator
 import logger
-import logger_impl
 import notifier
-from src.notifier_impl.src.notifier_impl._impl import get_notifier
-
 
 
 @pytest.fixture

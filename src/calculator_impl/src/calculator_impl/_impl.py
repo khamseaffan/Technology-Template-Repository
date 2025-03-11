@@ -1,8 +1,8 @@
 """Implementation for Calculator Module."""
 
-import calculator  
-import notifier
+import calculator
 import logger
+import notifier
 
 
 class CalculatorImpl(calculator.Calculator):
@@ -10,7 +10,7 @@ class CalculatorImpl(calculator.Calculator):
 
     def __init__(self) -> None:
         """Initialize instance."""
-        self._notifier = None 
+        self._notifier = None
         self._logger = None
 
     @property

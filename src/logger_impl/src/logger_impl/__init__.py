@@ -2,7 +2,9 @@
 
 import logger  # ✅ Import logger module
 import notifier
+
 from ._impl import LoggerImpl  # ✅ Ensure correct import
+
 
 def get_logger_impl(
     notifier_instance: notifier.Notifier | None = None,
