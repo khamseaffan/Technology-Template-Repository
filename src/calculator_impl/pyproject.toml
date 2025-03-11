@@ -9,4 +9,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-notifier = { path = "../calculator", editable = true }
+calculator = { path = "../calculator", editable = true }

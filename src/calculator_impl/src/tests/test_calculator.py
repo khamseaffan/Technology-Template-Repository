@@ -1,6 +1,6 @@
 import pytest
 
-from calculator_impl._impl import Calculator  
+from calculator_impl._impl import Calculator
 
 """Unit tests for the calculator module."""
 

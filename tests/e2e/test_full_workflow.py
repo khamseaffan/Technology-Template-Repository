@@ -1,6 +1,5 @@
 """Module for end-to-end tests."""
 
-
 import pytest
 
 import logger

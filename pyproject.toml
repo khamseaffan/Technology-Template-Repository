@@ -13,6 +13,12 @@ dependencies = [
     "uv>=0.6.0",
 ]
 
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+
 [tool.ruff]
 line-length = 88  # Default formatting width
 target-version = "py312"  # Adjust based on actual Python version
@@ -39,7 +45,5 @@ members = ["src/notifier_impl", "src/logger_impl"]
 
 [tool.pytest.ini_options]
 pythonpath = [
-    "src/notifier_impl/src",
-    "src/calculator_impl/src",
-    "src/logger_impl/src"
+    "src",
 ]

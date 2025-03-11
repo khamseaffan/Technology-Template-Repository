@@ -1,6 +1,5 @@
 """Implementation for Logger Module."""
 
-
 import logger
 import notifier
 
