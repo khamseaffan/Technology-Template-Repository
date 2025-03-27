@@ -5,62 +5,59 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      # Specify the version you desire here
-      # See: https://circleci.com/developer/images/image/cimg/base
-      - image: cimg/python:3.12
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "Print a test message"
-          command: "echo The CI/CD pipeline has been successfully initiated."
-
+  # Job 1: Setup Environment and Install All Dependencies
   build:
     docker:
-      - image: cimg/python:3.12
+      - image: cimg/python:3.13
     steps:
       - checkout
       - run:
           name: "Install UV and Add to Path"
           command: |
             curl -LsSf https://astral.sh/uv/install.sh | sh
-            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+            # Add uv to PATH for subsequent steps in this job
+            echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $BASH_ENV
             source $BASH_ENV
+            uv --version # Verify installation
       - run:
-          name: "Set up virtual environment and install dependencies"
+          name: "Create Virtual Env & Install All Dependencies via UV Sync"
           command: |
-            uv venv .venv
+            uv venv .venv --python 3.13 # Create venv with specific python
             source .venv/bin/activate
-            python -m ensurepip --default-pip
-            uv sync
-            uv pip install coverage pytest ruff mypy
-            echo 'export PATH="$HOME/project/.venv/bin:$PATH"' >> $BASH_ENV
+            uv sync --all-packages --extra test --extra dev --verbose
       - run:
-          name: "Install dependencies"
+          name: "Verify Installation (Optional)"
           command: |
             source .venv/bin/activate
-            uv sync
-            uv pip install coverage
-      - run:
-          name: "Run linting and formatting"
-          command: |
-            source .venv/bin/activate
-            uvx ruff format .
-            uvx ruff check . 
+            uv pip list # Check if workspace members and tools are listed
+            ruff --version
+            pytest --version
+            mypy --version
+            coverage --version
       - persist_to_workspace:
+          # Persist the entire project directory, including the populated .venv
           root: .
           paths:
-            - .venv
+            - .
+
+# Job 2: Linting and Formatting Checks
+  lint:
+    docker:
+      - image: cimg/python:3.13
+    steps:
+      - attach_workspace:
+          at: . # Attach the workspace persisted from 'setup'
+      - run:
+          name: "Run Linting and Formatting Checks"
+          command: |
+            source .venv/bin/activate # Activate the venv from the workspace
+            # Use --check for formatting in CI to avoid changing files
+            ruff format --check .
+            ruff check .
 
   test:
     docker:
-      - image: cimg/python:3.12
+      - image: cimg/python:3.13
     environment:
       PYTHONPATH: .
     steps:
@@ -68,59 +65,29 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: "Ensure virtual environment exists and activate"
-          command: |
-            if ! command -v uv &> /dev/null; then
-              echo "UV not found. Installing..."
-              curl -LsSf https://astral.sh/uv/install.sh | sh
-              echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
-              source $BASH_ENV
-            fi
-
-            if [ ! -d ".venv" ] || [ ! -f ".venv/bin/python3" ]; then
-              echo "Virtual environment is missing or broken. Recreating..."
-              uv venv .venv
-              source .venv/bin/activate
-              python -m ensurepip --default-pip
-              uv sync
-              uv pip install coverage
-            else
-              source .venv/bin/activate
-              if ! python -c "import coverage" &> /dev/null; then
-                echo "Coverage module missing. Reinstalling..."
-                uv pip install coverage
-              fi
-            fi
-      - run:
-          name: Set PYTHONPATH
-          command: echo "export PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $BASH_ENV
-      - run:
-          name: Build and Install Dependencies
-          command: |
-            uv venv .venv
-            source .venv/bin/activate 
-            uv pip install --upgrade uv
-            uv pip install -e .
-            uv build
-      - run:
-          name: "Execute test suite"
+          name: "Activate Venv and Create Test Results Directory"
           command: |
             source .venv/bin/activate
-            mkdir -p test-results
-            python -m coverage run -m pytest . --junitxml=test-results/junit.xml
+            mkdir -p test-results # Create directory for JUnit XML
       - run:
-          name: "Run static analysis (mypy)"
+          name: "Execute Test Suite (pytest + coverage)"
           command: |
             source .venv/bin/activate
-            uv pip install mypy  
-            # mypy --strict src/
+            pytest . --junitxml=test-results/junit.xml
       - run:
-          name: "Enforce coverage threshold"
+          name: "Run Static Analysis (mypy)"
           command: |
             source .venv/bin/activate
-            python -m coverage report --fail-under=85
-            python -m coverage xml
-            coverage json -o test-results/coverage.json
+            # Target specific source and test directories for mypy
+            mypy src tests
+      - run:
+          name: "Enforce Coverage Threshold and Generate Reports"
+          command: |
+            source .venv/bin/activate
+            # Use coverage CLI now that pytest has run it
+            coverage report --fail-under=85 # Check threshold
+            coverage xml # Generate XML report
+            coverage json -o test-results/coverage.json # Generate JSON report
       - run:
           name: "Execute nose2 tests (Optional)"
           command: |
