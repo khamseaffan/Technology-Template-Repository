@@ -5,8 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "calculator",
+    "calculator", 
+    "logger",     
+    "notifier",   
 ]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [tool.uv.sources]
-calculator = { path = "../calculator", editable = true }
+calculator = { workspace = true }
+logger = { workspace = true }
+notifier = { workspace = true }

@@ -2,7 +2,6 @@
 
 import notifier
 
-
 class NotifierImpl(notifier.Notifier):
     """Notifier class for sending notifications."""
 

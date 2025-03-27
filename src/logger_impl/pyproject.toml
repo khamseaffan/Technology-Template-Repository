@@ -9,9 +9,10 @@ dependencies = [
     "notifier",
 ]
 
-
-
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.uv.sources]
-logger = { path = "../logger", editable = true }
-notifier = { path = "../notifier", editable = true }
+logger = { workspace = true }
+notifier = { workspace = true }

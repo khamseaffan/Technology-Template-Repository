@@ -1,10 +1,6 @@
 site_name: Technology Template Repository
 site_description: Documentation for the Technology Template Repository
-site_author:
-  - Affan Khamse
-  - Ivan Aristy Eusebio
-  - Kevin Chen
-  - Mohan Lu
+site_author: Affan Khamse, Ivan Aristy Eusebio, Kevin Chen, Mohan Lu
 repo_url: https://github.com/khamseaffan/Technology-Template-Repository
 
 theme:
