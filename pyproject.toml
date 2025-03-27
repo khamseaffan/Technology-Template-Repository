@@ -96,3 +96,11 @@ mypy_path = [
     "src/calculator/src",
     "src/calculator_impl/src",
 ]
+
+[tool.coverage.report]
+# Lines to exclude from coverage statistics
+exclude_lines = [
+    "pragma: no cover",          # Standard pragma for excluding lines
+    "raise NotImplementedError", # Exclude lines raising this error
+    "if TYPE_CHECKING:"
+]
