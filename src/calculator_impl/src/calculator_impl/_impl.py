@@ -1,11 +1,11 @@
 """Implementation for Calculator Module."""
 
-import calculator  # type: ignore
+import calculator 
 import logger
 import notifier
 
 
-class CalculatorImpl(calculator.Calculator): # type: ignore
+class CalculatorImpl(calculator.Calculator):
     """Concrete implementation of the Calculator."""
 
     def __init__(self) -> None:
