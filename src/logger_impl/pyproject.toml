@@ -1,5 +1,5 @@
 [project]
-name = "logger-impl"
+name = "logger_impl"
 version = "0.1.0"
 description = "Implementation of the Logger Protocol"
 readme = "README.md"
@@ -9,6 +9,10 @@ dependencies = [
     "notifier",
 ]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [tool.uv.sources]
-logger = { path = "../logger", editable = true }
-notifier = { path = "../notifier", editable = true }
+logger = { workspace = true }
+notifier = { workspace = true }

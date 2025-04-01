@@ -1,10 +1,18 @@
 [project]
 name = "calculator"
 version = "0.1.0"
-description = "Calculator module"
+description = "Calculator Protocol"
+readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
-
+dependencies = [
+    "logger",
+    "notifier",
+]
+    
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+logger = { workspace = true }
+notifier = { workspace = true }

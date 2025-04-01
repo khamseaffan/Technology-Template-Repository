@@ -2,8 +2,7 @@
 
 import notifier
 
-
-class Notifier(notifier.Notifier):
+class NotifierImpl(notifier.Notifier):
     """Notifier class for sending notifications."""
 
     def __init__(self) -> None:
@@ -13,5 +12,6 @@ class Notifier(notifier.Notifier):
         """Output a notification message."""
         print(f"NOTIFICATION: {message}")
 
+
 def get_notifier() -> notifier.Notifier:
-    return Notifier()
+    return NotifierImpl()
