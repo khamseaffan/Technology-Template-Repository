@@ -4,12 +4,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-import calculator
-import calculator_impl
-import logger
-import logger_impl
-import notifier
-import notifier_impl
+from calculator_impl._impl import Calculator
+from logger_impl._impl import Logger
+from notifier_impl._impl import Notifier
 
 # @pytest.fixture
 # def mock_notifier() -> notifier.Notifier:

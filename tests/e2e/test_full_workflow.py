@@ -1,12 +1,8 @@
 """Module for end-to-end tests."""
 
-import calculator
-import logger
-import notifier
-import pytest
-import logger_impl
-import notifier_impl
-import calculator_impl
+from calculator_impl._impl import Calculator
+from logger_impl._impl import Logger
+from notifier_impl._impl import Notifier
 
 
 @pytest.fixture
